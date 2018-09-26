@@ -54,6 +54,7 @@ import { ShareComponent } from './components/share/share.component';
 import { PlaylistDialogComponent } from './components/playlist-dialog/playlist-dialog.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { TrendingComponent } from './components/trending/trending.component';
+import { YoutubeTracksComponent } from './components/youtube-tracks/youtube-tracks.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { TrendingComponent } from './components/trending/trending.component';
     ShareComponent,
     PlaylistDialogComponent,
     BottomSheetComponent,
-    TrendingComponent
+    TrendingComponent,
+    YoutubeTracksComponent
   ],
   imports: [
     BrowserModule,

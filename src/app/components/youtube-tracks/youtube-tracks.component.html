@@ -1,0 +1,77 @@
+    <div class="col md-6 mb-3">
+        
+      <!-- <h2 class="badge indigo">Leads</h2> -->
+      <!-- <h1>
+        <span class="badge grey z-depth-1">{{currentFolderName}}</span>
+        <h1 class="text-black m-3">Sign In</h1>
+      </h1> -->
+      <div class="mb-1 info-color-white text-center ">
+        <h1 class="text-black m-1">YouTube Playlist</h1>
+      </div>
+    </div>
+    <div class="container">
+        <mat-form-field>
+            <mat-select [(value)]="genre">
+              <mat-option value="Rap">Rap</mat-option>
+              <mat-option value="Rock">Rock</mat-option>
+              <mat-option value="Electronic">Electronic</mat-option>
+              <mat-option value="Country">Country</mat-option>
+              <mat-option value="RB">R&B</mat-option>
+              <mat-option value="K-POP">K-POP</mat-option>
+              <mat-option value="Latin">Latin</mat-option>
+              <mat-option value="Pop">Pop</mat-option>
+              <mat-option value="Blues">Blues</mat-option>
+              <mat-option value="Folk">Folk</mat-option>
+              <mat-option value="Jazz">Jazz</mat-option>
+            </mat-select>
+          </mat-form-field>
+      <div class="row">
+        <mat-progress-spinner class="very-pink" *ngIf="isLoading" [diameter]="50" color="accent" style="margin:0 auto;"
+          mode="indeterminate"></mat-progress-spinner>
+        <!-- <mat-progress-spinner *ngIf="isLoading" style="margin:0 auto;height:10px;width:10px" mode="indeterminate"></mat-progress-spinner> -->
+    
+        <ul class="list-unstyled  col-lg-4" *ngFor="let track of tracks">
+          <!-- <li class="card"  style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);"> -->
+          <li [style.backgroundImage]="'url('+ track.thumbnail +')'" class="card  h-100"> 
+    
+            <!--Card image-->
+            <!--           <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap">
+    -->
+            <!--Card content-->
+            <div class="card-body text-grey text-center z-depth-1">
+              <button class="drop-down" mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon style="color: orange; font-size: 2.3em;">more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button (click)="addToPlaylist(track)" mat-menu-item>
+                  <mat-icon>add</mat-icon>
+                  <span>Add to Playlist</span>
+                </button>
+              </mat-menu>
+              <div class="bottom-banner">
+                <!-- <button (click)="deleteTrack(track)" *ngIf="fromUploads" class="fa fa-remove" style="border:none;background-color:transparent;font-size:24px;position:absolute;top:3px;right:5px;margin:0;padding:5px 3px;color:grey"></button> -->
+    
+                <!--Title-->
+                <h5 class="cardTitle text-white card-title">{{ track.track_name }}</h5>
+                <!--Text-->
+                <p class="uploaded-text grey-text">Uploaded {{ track.createdDate | date}}</p>
+                <!-- <button class="btn btn-info waves-light" (click)="playPause(track)" mdbRippleRadius>Play
+                <i [ngClass]="!track.isPlaying ? 'fa fa-play-circle ml-1' : 'fa fa-pause-circle ml-1'"></i>
+              </button> -->
+    
+                
+    
+                <!-- <button mat-icon-button class="thumbs-up" (click)="likeTrack(track)">
+                  <i [matBadge]="track.likes" matBadgeColor="accent" class="material-icons text-white" *ngIf="!track.isLiked">favorite_border</i>
+                  <i [matBadge]="track.likes" matBadgeColor="accent" class="material-icons color_green;" color="primary"
+                    *ngIf="track.isLiked">favorite</i>
+                </button> -->
+              </div>
+    
+            </div>
+    
+          </li>
+        </ul>
+      </div>
+    </div>
+    <mdb-spinner spinnerType="big"></mdb-spinner>

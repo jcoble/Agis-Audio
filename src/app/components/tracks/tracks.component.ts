@@ -53,7 +53,7 @@ export class TracksComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.currentFolderName = params["folder_name"] || "";
 
-      if (params["fromUploads"] == "true") {
+      if (params["fromUploads"] == "true") { 
         this.fromUploads = true;
       }
     });
@@ -264,7 +264,7 @@ export class TracksComponent implements OnInit {
   addYouTubeVideo() {
     const dialogRef = this.dialog.open(YoutubeDialogComponent, {
       width: "250px",
-      data: { track_name: "", link: "", genre: "" }
+      data: { track_name: "Link", link: "", genre: "" }
     });
 
     dialogRef.afterClosed().subscribe(data => {
@@ -283,40 +283,48 @@ export class TracksComponent implements OnInit {
         console.log(trackToUpload);
 
         this.filesService.newTrack(trackToUpload).subscribe(data => {
-          this.filesService.getTracks(this.id).subscribe(tracks => {
-            this.isLoading = false;
-            this.tracks = this.removeMp3(tracks);
-            // this.tracks = tracks;
-            // console.log(this.tracks);
-      
-            //set each isPlaying to false for each track
-            this.tracks.forEach(track => {
-              
-              // is the track playing the same as this track?
-              if (CommonServiceService.currentTrack != null) {
-                if (track.url != CommonServiceService.currentTrack.url) {
-                  track.isPlaying = false;
+          if(data){
+            this.filesService.getTracks(this.id).subscribe(tracks => {
+              this.isLoading = false;
+              this.tracks = this.removeMp3(tracks);
+              // this.tracks = tracks;
+              // console.log(this.tracks);
+        
+              //set each isPlaying to false for each track
+              this.tracks.forEach(track => {
+                
+                // is the track playing the same as this track?
+                if (CommonServiceService.currentTrack != null) {
+                  if (track.url != CommonServiceService.currentTrack.url) {
+                    track.isPlaying = false;
+                  } else {
+                    track.isPlaying = CommonServiceService.currentTrack.isPlaying;
+                    this.commonService.changeTrack(track);
+                  }
                 } else {
-                  track.isPlaying = CommonServiceService.currentTrack.isPlaying;
-                  this.commonService.changeTrack(track);
+                  // if not then make all tracks set to not playing
+                  track.isPlaying = false;
                 }
-              } else {
-                // if not then make all tracks set to not playing
-                track.isPlaying = false;
-              }
-      
-              //Set isLiked nulls to false
-              if (track.isLiked == null) {
-                track.isLiked = false;
-              }
-            });
-            error => {
-              this.commonService.notifyYTUploadComplete();
-              this.snackbar.open("This Link can't be downloaded!", "Ok", {
-                duration: 3000
+        
+                //Set isLiked nulls to false
+                if (track.isLiked == null) {
+                  track.isLiked = false;
+                }
               });
-            }
-          });
+              
+            });
+          }else {
+            this.commonService.notifyYTUploadComplete();
+            this.snackbar.open("This Link can't be downloaded!", "Ok", {
+              duration: 3000
+            });
+          }
+          error => {
+            this.commonService.notifyYTUploadComplete();
+            this.snackbar.open("This Link can't be downloaded!", "Ok", {
+              duration: 3000
+            });
+          }
       
           this.commonService.events$.forEach(track => {
             this.currentTrack = track;

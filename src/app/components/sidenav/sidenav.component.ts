@@ -12,6 +12,7 @@ export class SidenavComponent implements OnInit {
   private auth: AuthService;
   isLoggedIn: boolean;
   name: string;
+  playlist_id: string;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -55,7 +56,7 @@ export class SidenavComponent implements OnInit {
   onRegisterClick() {
     this.toggleSideNav();
     this.router.navigate(["/register"]);
-  }
+  } 
 
   onMyPlaylistsClick() {
     this.toggleSideNav();
@@ -70,6 +71,12 @@ export class SidenavComponent implements OnInit {
   onTrendingClick(){
     this.toggleSideNav();
     this.router.navigate(["/trending"]);
+  }
+
+  onYouTubePlaylistLoad() {
+    this.toggleSideNav();
+    this.router.navigate(["/youtube/"+ this.playlist_id])
+    this.playlist_id = "";
   }
 
   toggleSideNav() {

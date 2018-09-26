@@ -19,6 +19,7 @@ import { SearchTracksComponent } from './components/search-tracks/search-tracks.
 import { MyplaylistsComponent } from './components/myplaylists/myplaylists.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { ShareComponent } from './components/share/share.component';
+import { YoutubeTracksComponent } from './components/youtube-tracks/youtube-tracks.component';
 
 const routes: Routes = [
   { path: '', component:  PlaylistsComponent, canActivate:[AuthGuard]},
@@ -38,8 +39,8 @@ const routes: Routes = [
   { path: 'myplaylists', component: MyplaylistsComponent, canActivate:[AuthGuard] },
   { path: 'myplaylists/folders', component: FoldersComponent, canActivate:[AuthGuard], runGuardsAndResolvers: 'always' },
   { path: 'resetpassword', component: ResetpasswordComponent } ,
-  { path: 'share', component: ShareComponent } 
-
+  { path: 'share', component: ShareComponent } ,
+  { path: 'youtube/:id', component:  YoutubeTracksComponent, canActivate:[AuthGuard]},
 
 
 ];

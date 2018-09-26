@@ -8,7 +8,7 @@
         </grid-item>
         <grid-item>
           <!-- <p>{{firstLastName}}</p> -->
-         
+
         </grid-item>
         <grid-item>
           <!-- <p>{{email}</p> -->
@@ -28,8 +28,17 @@
           <button mat-button (click)="onMyPlaylistsClick()">My Playlists</button>
         </mat-list-item>
         <mat-list-item *ngIf="isLoggedIn">
-            <button mat-button (click)="onTrendingClick()">Trending</button>
+          <button mat-button (click)="onTrendingClick()">Trending</button>
+        </mat-list-item>
+        <div *ngIf="isLoggedIn" class="youtube-wrapper text-center">
+          <mat-form-field>
+            <input placeholder="YouTube Playlist ID" matInput [(ngModel)]="playlist_id">
+          </mat-form-field>
+          <mat-list-item>
+            <button mat-button (click)="onYouTubePlaylistLoad()">Load YouTube Playlist</button>
           </mat-list-item>
+        </div>
+
         <mat-list-item *ngIf="!isLoggedIn">
           <button mat-button (click)="onLoginClick()">Login</button>
         </mat-list-item>

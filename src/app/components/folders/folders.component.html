@@ -28,6 +28,10 @@
               <mat-icon>add</mat-icon>
               <span>Add YouTube Audio</span>
             </button>
+            <button (click)="addYouTubePlaylist(folder)" [disabled]="isUploading" mat-menu-item>
+              <mat-icon>add</mat-icon>
+              <span>Add Whole YouTube Playlist</span>
+            </button>
             <button (click)="deleteFolder(folder)" [disabled]="isUploading" mat-menu-item>
               <mat-icon>delete</mat-icon>
               <span>Delete Playlist</span>

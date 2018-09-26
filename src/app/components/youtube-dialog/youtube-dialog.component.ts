@@ -9,7 +9,6 @@ import { DialogYouTubeData } from '../../models/DialogYouTubeData';
 })
 export class YoutubeDialogComponent implements OnInit {
   dataOut: DialogYouTubeData;
-
   constructor(
     private dialogRef: MatDialogRef<YoutubeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogYouTubeData,

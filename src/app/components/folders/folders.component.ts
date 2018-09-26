@@ -277,7 +277,7 @@ export class FoldersComponent implements OnInit {
   addYouTubeVideo(folder: Folder) {
     const dialogRef = this.dialog.open(YoutubeDialogComponent, {
       width: "250px",
-      data: { track_name: "", link: "", genre: "" }
+      data: { track_name: "Link", link: "", genre: "" }
     });
 
     dialogRef.afterClosed().subscribe(data => {
@@ -311,6 +311,50 @@ export class FoldersComponent implements OnInit {
       }
     });
   }
+
+  addYouTubePlaylist(folder: Folder) {
+    const dialogRef = this.dialog.open(YoutubeDialogComponent, {
+      width: "250px",
+      data: { track_name: "playlist id", link: "", genre: "" }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        this.commonService.notifyStartYTUpload();
+        let trackToUpload: Track = {
+          track_name: data.track_name,
+          createdDate: new Date(),
+          user_id: folder.user_id,
+          folder_id: folder.id,
+          youtube_link: data.link,
+          genre: data.genre
+        };
+        console.log(trackToUpload);
+        this.snackbar.open("This WILL take a long time to complete!", "Ok", {
+          duration: 3000
+        });
+        this.filesService.newPlaylist(trackToUpload).subscribe(data => {
+          if(data == true){
+            this.commonService.notifyUploadComplete(folder);
+            this.commonService.notifyYTUploadComplete();
+            this.snackbar.open("Playlist Added!", "Ok", {
+              duration: 3000
+            });
+          }
+          error => {
+            this.commonService.notifyYTUploadComplete();
+            this.snackbar.open("This Link can't be downloaded!", "Ok", {
+              duration: 3000
+            });
+          }
+        });
+      } else {
+        console.log("not");
+      }
+    });
+  }
+
+  
 
   deleteFolder(folderToBeDeleted: Folder) {
     const dialogRef = this.dialog.open(DialogComponent, {

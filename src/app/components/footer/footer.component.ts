@@ -92,33 +92,8 @@ export class FooterComponent implements OnInit, OnDestroy {
 
       this.playPause();
     });
-    this.newVariable = window.navigator;
-    this.newVariable.mediaSession.setActionHandler('previoustrack', () => {
-      this.skipPreviousTrack();
-    })
 
-    this.newVariable.mediaSession.setActionHandler('nexttrack', () => {
-      this.skipNextTrack();
-    })
-
-    this.newVariable.mediaSession.setActionHandler('play', () => {
-      this.triggerPlayPause();
-    })
-
-    this.newVariable.mediaSession.setActionHandler('pause', () => {
-      this.triggerPlayPause();
-    })
-
-    let skipTime = 10;/* Time to skip in seconds */
-    this.newVariable.mediaSession.setActionHandler('seekbackward', () => {
-      this.audio.currentTime = Math.max(this.audio.currentTime - skipTime, 0);
-      this.audioCurrentTime = this.audio.currentTime;
-    })
-
-    this.newVariable.mediaSession.setActionHandler('seekforward', () => {
-      this.audio.currentTime = Math.min(this.audio.currentTime + skipTime, this.audio.duration);
-      this.audioCurrentTime = this.audio.currentTime;
-    })
+    
 
     this.commonService.uploadEvents$.forEach(data => {
       this.uploadFiles(data.files, data.folder);
@@ -147,6 +122,38 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.commonService.previousTrackEvents$.forEach(() => {
       this.skipPreviousTrack();
     });
+
+    try
+    {
+      this.newVariable = window.navigator;
+
+      this.newVariable.mediaSession.setActionHandler('previoustrack', () => {
+        this.skipPreviousTrack();
+      })
+  
+      this.newVariable.mediaSession.setActionHandler('nexttrack', () => {
+        this.skipNextTrack();
+      })
+  
+      this.newVariable.mediaSession.setActionHandler('play', () => {
+        this.triggerPlayPause();
+      })
+  
+      this.newVariable.mediaSession.setActionHandler('pause', () => {
+        this.triggerPlayPause();
+      })
+    let skipTime = 10;/* Time to skip in seconds */
+    this.newVariable.mediaSession.setActionHandler('seekbackward', () => {
+      this.audio.currentTime = Math.max(this.audio.currentTime - skipTime, 0);
+      this.audioCurrentTime = this.audio.currentTime;
+    })
+
+    this.newVariable.mediaSession.setActionHandler('seekforward', () => {
+      this.audio.currentTime = Math.min(this.audio.currentTime + skipTime, this.audio.duration);
+      this.audioCurrentTime = this.audio.currentTime;
+    })
+    }catch{
+    }
   }
 
   skipPreviousTrack(): void {

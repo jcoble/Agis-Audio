@@ -45,6 +45,11 @@ export class FilesService {
     return this.http.get<Track[]>(url)
   }
 
+  getYouTubeTracks(track: Track): Observable<Track[]> {
+    const url = this.apiUrl + 'YouTube';
+    return this.http.post<Track[]>(url, track, httpOptions)
+  }
+
   searchTracks(search_value: string): Observable<Track[]> {
     const url = this.apiUrl + 'TracksQuery/'+search_value;
     return this.http.get<Track[]>(url); 
@@ -103,6 +108,11 @@ export class FilesService {
 
   newTrack(track: Track): Observable<Track> {
     const url = this.apiUrl + 'Track';
+    return this.http.post<Track>(url, track, httpOptions);
+  }
+
+  newPlaylist(track: Track): Observable<Track> {
+    const url = this.apiUrl + 'Track/YTPlaylist';
     return this.http.post<Track>(url, track, httpOptions);
   }
 
