@@ -1,0 +1,1 @@
+-		$exception	{"Incorrect syntax near the keyword 'SELECT'.\r\nIncorrect syntax near ')'."}	System.Data.SqlClient.SqlException

@@ -1,0 +1,110 @@
+.very-pink::ng-deep circle {
+    stroke:  #ff9800;
+  }
+.wrapper-main {
+  margin-bottom: 10em;
+}
+ 
+.number-tracks {
+  position: absolute;
+  right: 2em;
+  bottom: 1em;
+  padding: 8px;
+}
+
+.number-folders {
+  position: absolute;
+  left: 2em;
+  bottom: 1em;
+  padding: 8px;
+}
+
+.top-container {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 5em;
+  background-color: rgba(14,14,14, 0.5);
+  top: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.chip-container {
+  position: absolute;
+  width: 100%;
+  height: 5em;
+  bottom: 0px;
+  padding: 0px;
+
+}
+
+mat-chip {
+  background: rgba(14,14,14, 0);
+  padding: 6px;
+}
+
+.card {
+  min-height: 10em;
+  background-color: rgba(14,14,14, .2);
+}
+
+
+
+.list-unstyled {
+  margin: 0px;
+  padding-top: .4em;
+    padding-bottom: .4em;
+    padding-left: .3em;
+    padding-right: .3em;
+}
+
+.card-body {
+  padding: 0px;
+  background-color: rgba(14,14,14, .4);
+  border-radius: 5px;
+}
+
+@media (max-width: 991px ) {
+  button {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+      margin-top: .7em !important;
+  }
+}
+
+button {
+  margin-top: .7em !important;
+}
+
+@media (max-width: 800px ) {
+  button {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
+}
+
+.cardTitle {
+  position: relative;
+  font-size: 1.5em;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-height: 3em;
+  line-height: 1em;
+  margin-top: 1em;
+  color: white;
+}
+
+@media (max-width: 576px ) {
+  .cardTitle {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .list-unstyled{
+    margin: 0px;
+    padding: .2em .1em .2em .1em;
+  }
+}

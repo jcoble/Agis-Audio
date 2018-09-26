@@ -1,0 +1,115 @@
+
+app-navbor {
+     position: absolute;
+    top: 0;
+    width: 100%;
+    background: rgba(14,14,14, 0);
+    z-index: 33;
+    height: 60px;
+}
+
+mat-sidenav-content {
+    // margin-top: 60px;
+    background-color: rgba(0,0,0,0);
+}
+
+nav {
+    margin-top: 50px;
+}
+
+mat-tab-group {
+    margin-top: 50px;
+}
+
+body > app-root > mat-sidenav-container > mat-sidenav-content {
+    opacity: 0;
+}
+
+
+.example-sidenav {
+    width: 300px;
+    max-width: 90vw;
+}
+
+.example-container {
+    height: 100%;
+    background-color: rgba(0,0,0,0);
+}
+
+.tabs-main {
+    width: 100%;
+}
+/* Footer */
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /* background-color: white; */
+    height: 5em;
+    background-color: rgba(14,14,14, 0.9);
+}
+
+.hide-footer {
+    height: 1px !important;
+}
+
+.open-footer {
+    height: 20em;
+}
+
+.mat-tab-nav-bar {
+    background: rgba(0,0,0,0) !important;
+    display: flex !important;
+    justify-content: center !important;
+} 
+
+@media(max-height: 768px) {
+    footer {
+        height: 4em;
+    }
+}
+
+@media(max-width: 900px) {
+    .mat-tab-nav-bar {
+        display: block !important;
+        justify-content: center !important;
+    } 
+}
+
+ .mat-tab-link {
+    color: black ;
+    background: rgba(0,0,0,0) ;
+    opacity: 1;
+    justify-content: center
+}
+
+.mat-tab-label-active {
+    background-color: rgba(0,0,0,0) ;
+    color: black;
+    opacity: 1;
+}
+
+.mat-ink-bar {
+    background: white;
+    opacity: 1;
+}
+
+::ng-deep .mat-tab-links{
+    justify-content: center; /* align items in Main Axis */
+    max-width: 900px;
+}
+
+input {
+    opacity: 1;
+}
+
+.example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+

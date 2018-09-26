@@ -1,0 +1,113 @@
+<!--Navbar-->
+<mat-toolbar>
+
+  <!-- <matb-navbar #navMain class="navbar " SideClass="navbar navbar-light navbar-dark purple  darken-3 fixed-top z-depth-0" > -->
+  <!-- <matb-navbar #navMain class="navbar " SideClass="navbar navbar-expand-lg navbar-light navbar-dark purple  darken-3 mb-0 fixed-top"> -->
+  <!-- Navbar brand -->
+  <div class="jesse-container">
+
+    <grid-item>
+      <!-- <button mat-icon-button *ngIf="!isSearching" (click)="back()">
+        <i style="font-size: 2em; color: black;" class="material-icons">arrow_back_ios</i>
+      </button> -->
+    </grid-item>
+
+    <grid-item>
+      <form [ngClass]="depth" (mouseover)="depth='z-depth-3'" (mouseout)="depth='z-depth-1'">
+          <button mat-icon-button *ngIf="!isSearching" (click)="back()">
+              <i style="font-size: 2em; color: black; padding: 0px; margin:  7px 0 0 0; height: 1.7em; width: 1.2em;" class="material-icons">arrow_back_ios</i>
+            </button>
+          <button type="submit" class="button-center" mat-icon-button class="toggle-button" (click)="onSubmit(search.value)">
+              <i style="font-size: 2em; color: black; padding: 0px; margin:  7px 0 0 0; height: 1.7em; width: 1.2em;" class="material-icons">search</i>
+            </button>
+        <input type="text" #search name="search" id="search" placeholder="Search Tracks..." #search [(ngModel)]="value">
+        <!-- <button id="toggle-button" ><img src="/src/assets/baseline_menu_black_18dp.png"></button> -->
+
+        <button class="button-center" mat-icon-button class="toggle-button" (click)="toggleSideNav()">
+          <i style="font-size: 2em; color: black; padding: 0px; margin: 7px 0 0 0; height: 1.7em; width: 1.2em;" class="material-icons">menu</i>
+        </button>
+
+      </form>
+      <!-- </logo> -->
+    </grid-item>
+ 
+    <!-- <grid-item>
+      <button mat-icon-button class="toggle-button" (click)="toggleSideNav()">
+        <i style="font-size: 2.5em; color: white;" class="material-icons">menu</i>
+      </button>
+    </grid-item> -->
+
+  </div>
+
+
+
+  <!-- <mat-form-field class="example-form-field">
+        <input type="search" type="text" placeholder="Search Tracks"  [(ngModel)]="value">
+        <mat-icon style="font-size: 2.5em; color: black;" class="material-icons">menu</mat-icon>
+        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon> 
+          </button>
+        
+    </mat-form-field> -->
+
+
+
+
+  <!-- <div class="spacer"></div> -->
+  <!-- <material-ui-search-bar></material-ui-search-bar> -->
+  <!-- <ul class="navbar-nav"> -->
+  <!-- <li *ngIf="!isLoggedIn" class="nav-item" (click)="onClickNav($event)"> -->
+  <!-- <a *ngIf="!isLoggedIn" routerLink="/login" class="nav-link waves-button" matbRippleRadius>Login</a> -->
+  <!-- </li> -->
+  <!-- <li *ngIf="!isLoggedIn" class="nav-item " (click)="onClickNav($event)" > -->
+  <!-- <a *ngIf="!isLoggedIn" routerLink="/register" class="nav-link waves-button" matbRippleRadius>Register</a> -->
+  <!-- </li> -->
+  <!-- <li *ngIf="isLoggedIn" class="nav-item" (click)="onLogoutClick($event)" > -->
+  <!-- <a *ngIf="isLoggedIn" class="nav-link waves-button" matbRippleRadius>Logout</a> -->
+  <!-- <mat-search-bar></mat-search-bar> -->
+
+  <!-- </li>
+    </ul>  -->
+</mat-toolbar>
+<!-- Collapsible content -->
+<!-- <links> -->
+<!-- Links -->
+<!-- <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a routerLink="/leads" class="nav-link waves-light" matbRippleRadius>Leads
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']" active>
+        <a routerLink="/speakers" [routerLinkActive]="['active']" class="nav-link waves-light" matbRippleRadius>Speakers</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a routerLink="/myleads" class="nav-link waves-light" matbRippleRadius>My Leads</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a routerLink="/myspeakers" class="nav-link waves-light" matbRippleRadius>My Speakers</a>
+      </li>
+    </ul> -->
+<!-- Links -->
+<!-- <ul class="navbar-nav">
+      <li *ngIf="!isLoggedIn" class="nav-item" (click)="onClickNav($event)">
+        <a  routerLink="/login" class="nav-link waves-button" matbRippleRadius>Login</a>
+      </li>
+      <li *ngIf="!isLoggedIn" class="nav-item " (click)="onClickNav($event)" >
+        <a routerLink="/register" class="nav-link waves-button" matbRippleRadius>Register</a>
+      </li>
+      <li *ngIf="isLoggedIn" class="nav-item" (click)="onLogoutClick($event)" >
+        <a class="nav-link waves-button" matbRippleRadius>Logout</a>
+      </li>
+    </ul> -->
+
+<!-- Search form -->
+<!-- <form name="searchForm"  #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)" class="form-inline  waves-light" matbRippleRadius>
+      <input id="search" name="searchValue" required class="form-control mr-sm-2" type="text" placeholder="Search" [(ngModel)]="searchValue">
+    </form> -->
+<!-- </links> -->
+<!-- Collapsible content -->
+
+<!-- </matb-navbar> -->
+
+<!--/.Navbar-->

@@ -1,0 +1,46 @@
+<div class="whole-container">
+
+  <grid-item>
+    <div class="top-box">
+      <div class="top-box-container">
+        <grid-item>
+
+        </grid-item>
+        <grid-item>
+          <!-- <p>{{firstLastName}}</p> -->
+         
+        </grid-item>
+        <grid-item>
+          <!-- <p>{{email}</p> -->
+          <p>{{name}}</p>
+        </grid-item>
+      </div>
+    </div>
+  </grid-item>
+
+  <grid-item>
+    <div class="bottom-box">
+      <mat-list>
+        <mat-list-item *ngIf="isLoggedIn">
+          <button mat-button (click)="onUsersClick()">Users</button>
+        </mat-list-item>
+        <mat-list-item *ngIf="isLoggedIn">
+          <button mat-button (click)="onMyPlaylistsClick()">My Playlists</button>
+        </mat-list-item>
+        <mat-list-item *ngIf="isLoggedIn">
+            <button mat-button (click)="onTrendingClick()">Trending</button>
+          </mat-list-item>
+        <mat-list-item *ngIf="!isLoggedIn">
+          <button mat-button (click)="onLoginClick()">Login</button>
+        </mat-list-item>
+        <mat-list-item *ngIf="!isLoggedIn">
+          <button mat-button (click)="onRegisterClick()">Register</button>
+        </mat-list-item>
+        <mat-list-item *ngIf="isLoggedIn">
+          <button cdk-focus-start mat-button (click)="onLogoutClick()">Logout</button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </grid-item>
+
+</div>

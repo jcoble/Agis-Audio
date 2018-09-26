@@ -1,0 +1,18 @@
+<div class="container">
+<mat-form-field class="m-3">
+    <mat-select [(value)]="selectedGenre" placeholder="Genre" (selectionChange)="doTopGenre()">
+      <mat-option value="Rap">Rap</mat-option>
+      <mat-option value="Rock">Rock</mat-option>
+      <mat-option value="Electronic">Electronic</mat-option>
+      <mat-option value="Country">Country</mat-option>
+      <mat-option value="RB">R&B</mat-option>
+      <mat-option value="K-POP">K-POP</mat-option>
+      <mat-option value="Latin">Latin</mat-option>
+      <mat-option value="Pop">Pop</mat-option>
+      <mat-option value="Blues">Blues</mat-option>
+      <mat-option value="Folk">Folk</mat-option>
+      <mat-option value="Jazz">Jazz</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <app-tracks></app-tracks>
+</div>

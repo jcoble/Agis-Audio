@@ -1,0 +1,19 @@
+<div mat-dialog-content>
+    <p>Choose Playlist(s) to Add To</p>
+    <div class="playlist-list">
+
+        <form [formGroup]="playlistFormGroup">
+
+            <div *ngFor="let folder of folders; let i = index" >
+                <mat-checkbox class="example-margin" 
+                (change)="onChange($event)" [value]="folder">{{folder.folder_name}}</mat-checkbox>
+            </div>
+
+            <!-- <button>Submit</button> -->
+        </form>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button (click)="onClose()" cdkFocusInitial>Add</button>
+  </div>

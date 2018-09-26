@@ -1,0 +1,18 @@
+1. When searching close nav and keyboard on mobile - DONE
+2. progress bar on all calls to api - DONE
+3. Download progress on mobile - DONE
+4. Uploads folders spacing - DONE
+5. New folder name textbox spacing on mobile  - DONE
+6. Left margin on mobile for track name
+6. Undefined folder names in leads page - DONE
+7. speakers tab
+8. Add back buttons - DONE
+9. Add web worker service - DONE
+10. Add to homescreen - DONE
+11. Slider bug - DONE
+12. refresh tokens
+13. Tablet sizing
+
+
+NEXT release
+1. Navigate forward back on tracks on desktop

@@ -1,0 +1,25 @@
+<div mat-dialog-content>
+  <p>Enter YouTube Info</p>
+  <mat-form-field>
+    <mat-select [(value)]="data.genre">
+      <mat-option value="Rap">Rap</mat-option>
+      <mat-option value="Rock">Rock</mat-option>
+      <mat-option value="Electronic">Electronic</mat-option>
+      <mat-option value="Country">Country</mat-option>
+      <mat-option value="RB">R&B</mat-option>
+      <mat-option value="K-POP">K-POP</mat-option>
+      <mat-option value="Latin">Latin</mat-option>
+      <mat-option value="Pop">Pop</mat-option>
+      <mat-option value="Blues">Blues</mat-option>
+      <mat-option value="Folk">Folk</mat-option>
+      <mat-option value="Jazz">Jazz</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="YouTube link..." matInput [(ngModel)]="data.link">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onClose()" cdkFocusInitial>Ok</button>
+</div>

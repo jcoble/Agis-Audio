@@ -1,0 +1,64 @@
+<!-- <h1>
+  <span class="badge grey z-depth-1">{{userName}}</span>
+</h1> -->
+<div class="mb-1 info-color-white text-center ">
+  <h1 class="text-black m-1">{{userName}}</h1>
+</div>
+<div class="container">
+  <mat-progress-spinner class="very-pink" *ngIf="isLoading" [diameter]="50" color="accent" style="margin:0 auto;" mode="indeterminate"></mat-progress-spinner>
+  <input #fileInput name="fileInput" class="inputfile mb-5" type="file" (change)="addFiles(fileInput.files)"
+    multiple accept=".mp3" />
+  <div class="row" *ngIf="folders?.length > 0">
+    <ul class="list-unstyled col-lg-4" *ngFor="let folder of folders">
+      <li class="card h-100">
+        <div class="card-body text-black text-center z-depth-1">
+          <button *ngIf="fromUploads == 'true'" class="drop-down" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon style="color: orange; font-size: 2.3em;">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openDialog(folder)" [disabled]="isUploading">
+              <mat-icon>create_new_folder</mat-icon>
+              <span>Add Playlist</span>
+            </button>
+            <!-- <button (click)="uploadFolder = folder; fileInput.click()" [disabled]="isUploading" mat-menu-item>
+              <mat-icon>add</mat-icon>
+              <span>Upload Files</span>
+            </button> -->
+            <button (click)="addYouTubeVideo(folder)" [disabled]="isUploading" mat-menu-item>
+              <mat-icon>add</mat-icon>
+              <span>Add YouTube Audio</span>
+            </button>
+            <button (click)="deleteFolder(folder)" [disabled]="isUploading" mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Delete Playlist</span>
+            </button>
+          </mat-menu>
+
+          <div class="top-container">
+              <h4 class="cardTitle card-title">{{ folder.folder_name }}</h4>
+              <p class="grey-text">Created {{ folder.created_date | date}}</p>
+          </div>
+          
+
+          <div class="chip-container">
+
+            <button [matBadge]="folder.number_tracks" matBadgeColor="accent" matBadgePosition="above after" routerLink="{{_ruta}}/tracks/{{ folder.id }}" [queryParams]="{folder_name: folder.folder_name, fromUploads: fromUploads}"
+              mat-button color="primary" class="number-tracks">View Tracks
+            </button>
+            <button class="number-folders" [matBadge]="folder.number_folders" matBadgePosition="above before" matBadgeColor="accent"  (click)="getNewFolders(folder)" mat-button color="primary">View Playlists</button>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- <div class="row">
+  <ul class="list-unstyled  col-md-4 mt-5" *ngFor="let track of tracks">
+    <li class="card">
+      <div class="card-body text-black text-center z-depth-2">
+        <h4 class="card-title text-truncate">{{ track.track_name }}</h4>
+      </div>
+    </li>
+  </ul>
+</div> -->

@@ -1,0 +1,58 @@
+<div class="mb-1 info-color-white text-center ">
+        <h1 class="text-black m-1">My Playlists</h1>
+    </div>
+
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" mdbModal #autoShownModal="mdb-modal" class="modal fade"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{ modalMessage }}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="container"> -->
+    <!-- <form class="form-inline" #folderForm="ngForm" (ngSubmit)="onSubmit(folderForm)">
+        
+        <div id="uploadForm" class="md-form form-group">
+
+            <input id="folderName" mdbActive type="text" [ngClass]="{'is-invalid':folder_name.errors && folder_name.touched}" required minlength="5" [(ngModel)]="folder.folder_name"
+                class="form-control" #folder_name="ngModel" name="folder_name">
+            <label for="folder_name">Folder Name</label>
+
+            <div [hidden]="!folder_name.errors?.required" class="invalid-feedback">
+                Folder name required
+            </div>
+
+            <div [hidden]="!folder_name.errors?.minlength" class="invalid-feedback">
+                Folder name be at least 5 characters
+            </div>
+        </div>
+        <div class="md-form form-group">
+                <button id="uploadBtn" type="submit" value="submit" mat-stroked-button mdbRippleRadius>Add Folder</button>
+            </div>
+    </form> -->
+    <button (click)="openDialog()" class="add-folder-fab" mat-fab color="accent"><mat-icon>add</mat-icon></button>
+    <app-folders></app-folders>
+    <!-- <ul class="list-unstyled  col-md-4 mt-5" *ngFor="let file of files">
+        <li class="card">
+            <div class="card-body text-black text-center z-depth-2">
+                <div role="group" *ngIf="uploadState | async; let state">
+                    <button type="button" class="btn btn-primary" (click)="task.pause()" [disabled]="state === 'paused'">Pause</button>
+                    <button type="button" class="btn btn-primary" (click)="task.cancel()" [disabled]="!(state === 'paused' || state === 'running')">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="task.resume()" [disabled]="state === 'running'">Resume</button>
+                </div>
+            </div>
+        </li>
+    </ul> -->
+    <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
+        File uploaded:
+        <a [href]="downloadSrc">{{downloadSrc}}</a>
+    </div>
+<!-- </div> -->

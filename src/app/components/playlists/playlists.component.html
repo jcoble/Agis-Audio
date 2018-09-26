@@ -1,0 +1,31 @@
+<div class="col md-6 mb-2">
+  <!-- <h2 class="badge indigo">Leads</h2> -->
+
+  <!-- <h1>
+    <span class="badge black-text z-depth-0">User's Leads Libraries</span>
+  </h1> -->
+
+  <div class="mb-1 info-color-white text-center ">
+    <h1 class="text-black m-1">User's Collections</h1>
+  </div>
+  <div class="container">
+    <mat-form-field class="selector-form">
+      <mat-select placeholder="Sort" (selectionChange)="doSort($event.value)">
+        <mat-option *ngFor="let sortType of sortTypes" [value]="sortType.value">
+          {{sortType.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <app-users></app-users>
+
+    <!-- <mat-form-field appearance="outline"  style=" margin-bottom: -1.25em">
+
+
+
+    </mat-form-field> -->
+
+
+
+  </div>
+</div>

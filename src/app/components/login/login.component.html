@@ -1,0 +1,65 @@
+<!-- Login form -->
+<div class="container main-wrapper mt-5"> 
+        <div class="content-wrapper">
+
+                <grid-item class=one>
+                </grid-item>
+            
+                <grid-item class="two">
+                    <!-- <div class="card mb-4 text-center info-color-white">
+                        <h1 class="text-black m-3">Sign In</h1>
+                    </div> -->
+                    <div class="card">
+                            <div class="sign-in-header text-center info-color-white">
+                                    <h1 class="text-black m-3">Sign In</h1>
+                                </div>
+                        <!-- <div class="text-center mt-5">
+                            <button (click)="signInWithGoogle()" class="btn btn-red">Sign In With Google</button>
+                        </div> -->
+                        <div class="container">
+                            <div class="alert alert-danger" role="alert" *ngIf="errors.length > 0">
+                                <ul>
+                                    <li *ngFor="let error of errors">
+                                        {{ error }}
+                                    </li>
+                                </ul>
+                            </div>
+            
+                            <form (submit)="onSubmit()">
+                                <!-- <h1 class="h5 text-center mb-4">Sign in</h1> -->
+            
+                                <div class="md-form">
+                                    <i class="fa fa-envelope prefix grey-text"></i>
+                                    <input type="email" name="email" [(ngModel)]="email" class="form-control" required mdbActive>
+                                    <label for="email">Email</label>
+                                </div>
+            
+                                <div class="md-form">
+                                    <i class="fa fa-lock prefix grey-text"></i>
+                                    <!-- <input type="password" id="defaultForm-pass" class="form-control" [(ngModel)]="password" mdbActive> -->
+                                    <input type="password" name="password" [(ngModel)]="password" class="form-control" required mdbActive>
+                                    <label for="password">Password</label>
+                                </div>
+            
+                                <div class="text-center mb-3">
+                                    <button type="submit" mat-raised-button color="primary" [disabled]="isLoggingIn">
+                                            <mat-progress-spinner *ngIf="isLoggingIn" class="upload-spinner" mode="indeterminate" color="accent" diameter="25" strokeWidth="3"></mat-progress-spinner>
+                                        Login
+                                    </button>
+                                    <button mat-button (click)="onRegisterClick()">Register</button>
+                                </div>
+                            </form>
+            
+                            <div class="text-center mb-3 inline">
+                                <button mat-button (click)="openDialog()">Forgot Password?</button>
+                            </div>
+                        </div>
+                    </div>
+                </grid-item>
+            
+            
+                <grid-item class="three">
+                </grid-item>
+            
+            </div>
+</div>

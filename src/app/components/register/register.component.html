@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="content-wrapper">
+
+        <grid-item class=one>
+        </grid-item>
+        <grid-item class="two">
+
+            <div class="card">
+                <div class="text-center info-color-white">
+                    <h1 class="text-black m-3">Register</h1>
+                </div>
+                <!-- <div class="text-center mt-5">
+                <button (click)="signUpWithGoogle()" class="btn btn-red">Sign Up With Google</button>
+            </div> -->
+                <!-- <div class="text-center mt-3 mb-3">
+                <h3>OR</h3>
+            </div> -->
+                <div class="container">
+                    <div class="alert alert-danger" role="alert" *ngIf="errors.length > 0">
+                        <ul>
+                            <li *ngFor="let error of errors">
+                                {{ error }}
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Register form-->
+                    <form #registerForm="ngForm" (submit)="onSubmit(registerForm)">
+                        <!-- <div class="md-form  mt-5">
+                        <i class="fa fa-user prefix grey-text"></i>
+                        <input type="text" id="orangeForm-name" class="form-control" [(ngModel)]="name" mdbActive>
+                        <label for="orangeForm-name">Your name</label>
+                    </div> -->
+
+                        <div class="md-form">
+                            <i class="fa fa-user prefix grey-text"></i>
+                            <!-- <input type="password" id="defaultForm-pass" class="form-control" [(ngModel)]="password" mdbActive> -->
+                            <input type="text" name="first_name" [(ngModel)]="user.first_name" class="form-control" #first_name="ngModel" [ngClass]="{'is-invalid':first_name.errors && first_name.touched}"
+                                required minlength="2" mdbActive>
+                            <label for="first_name">Your First Name</label>
+
+                            <div [hidden]="!first_name.errors?.required" class="invalid-feedback">
+                                First name required
+                            </div>
+
+                            <div [hidden]="!first_name.errors?.minlength" class="invalid-feedback">
+                                Must be at least 2 characters
+                            </div>
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa fa-user prefix grey-text"></i>
+                            <!-- <input type="password" id="defaultForm-pass" class="form-control" [(ngModel)]="password" mdbActive> -->
+                            <input type="text" name="last_name" [(ngModel)]="user.last_name" class="form-control" #last_name="ngModel" [ngClass]="{'is-invalid':last_name.errors && last_name.touched}"
+                                required minlength="2" mdbActive>
+                            <label for="last_name">Your Last Name</label>
+
+                            <div [hidden]="!last_name.errors?.required" class="invalid-feedback">
+                                Last name required
+                            </div>
+
+                            <div [hidden]="!last_name.errors?.minlength" class="invalid-feedback">
+                                Last be at least 2 characters
+                            </div>
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa fa-envelope prefix grey-text"></i>
+                            <input name="email" type="email" id="orangeForm-email" class="form-control" [(ngModel)]="user.email" #email="ngModel" [ngClass]="{'is-invalid':email.errors && email.touched}"
+                                required mdbActive>
+                            <label for="orangeForm-email">Your email</label>
+
+                            <div [hidden]="!email.errors?.required" class="invalid-feedback">
+                                Email required
+                            </div>
+
+                        </div>
+                        <!-- <div class="md-form">
+                        <i class="fa fa-lock prefix grey-text"></i>
+                        <input name="name" type="name" id="orangeForm-name" class="form-control" [(ngModel)]="name" mdbActive>
+                        <label for="orangeForm-pass">Your Name</label>
+                    </div> -->
+                        <div class="md-form">
+                            <i class="fa fa-lock prefix grey-text"></i>
+                            <input autocomplete="new-password" name="password" type="password" id="orangeForm-pass" class="form-control" [(ngModel)]="user.password"
+                                #password="ngModel" [ngClass]="{'is-invalid':password.errors && password.touched}" required mdbActive>
+                            <label for="orangeForm-pass">Your password</label>
+
+                            <div [hidden]="!password.errors?.required" class="invalid-feedback">
+                                Password required
+                            </div>
+                        </div>
+
+                        <div class="text-center mb-5">
+                            <!-- <button type="submit" class="btn btn-deep-orange waves-light" mdbRippleRadius>Sign Up</button> -->
+                            <button type="submit" mat-raised-button color="primary" [disabled]="isLoggingIn">
+                                <mat-progress-spinner *ngIf="isLoggingIn" class="upload-spinner" mode="indeterminate" color="accent" diameter="25" strokeWidth="3"></mat-progress-spinner>
+                                Sign Up
+                            </button>
+                        </div>
+                    </form>
+                    <!--/Register form-->
+                </div>
+            </div>
+        </grid-item>
+
+        <grid-item class="three">
+        </grid-item>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<footer class="z-depth-4">
+    <div class="slider">
+        <input id="range" max="{{ audioDuration }}" [value]="audioCurrentTime" type="range" (mousedown)="press($event)"
+            (mouseup)="release($event)" (touchdown)="press($event)" (touchend)="release($event)" />
+    </div>
+    <div class="content-wrapper">
+
+        <grid-item (click)="footerClick()" class="pointer">
+            <div *ngIf="!isUploading">
+                <p id="trackName" class="blue-black darken-2 font-weight-bold text-center">{{ track.track_name }}</p>
+
+            </div>
+            <div *ngIf="isUploading" class="progress-wrapper">
+                <!-- <round-progress background="white" color="#ff5722" rounded="true" [radius]="28" [stroke]="7" max="100" [current]="(uploadProgress | async)"></round-progress> -->
+                <progress class="hidden-progress" max="100" [value]="(uploadProgress | async)"></progress>
+                <mat-progress-bar [color]="primary" [mode]="isDeterminate" [value]="(uploadProgress | async)" class="mprogress">
+                </mat-progress-bar>
+            </div>
+
+        </grid-item>
+        <grid-item>
+            <button mat-mini-fab color="primary" (click)="triggerPlayPause()">
+                <mat-progress-spinner *ngIf="trackLoading" class="upload-spinner" mode="indeterminate" color="accent"
+                    diameter="25" strokeWidth="3"></mat-progress-spinner>
+                <i class="material-icons" *ngIf="!track.isPlaying">play_arrow</i>
+
+                <i class="material-icons" *ngIf="track.isPlaying">pause</i>
+            </button>
+        </grid-item>
+        <grid-item (click)="footerClick()"  class="pointer">
+            <h3 id="secs" class="grey-text darken-2 font-weight-bold ">{{ secondsMinutes }}</h3>
+        </grid-item>
+    </div>
+    
+</footer>

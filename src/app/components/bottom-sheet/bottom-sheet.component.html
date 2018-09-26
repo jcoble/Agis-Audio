@@ -1,0 +1,52 @@
+<div [style.backgroundImage]="'url('+ track.thumbnail +')'" class="footer-opened-wrapper">
+  <div class="card">
+    
+    <div class="card-body text-grey text-center z-depth-1">
+        <button class="drop-down" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon style="color: orange; font-size: 2.3em;">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="addToPlaylist(track)" mat-menu-item>
+              <mat-icon>add</mat-icon>
+              <span>Add to Playlist</span>
+            </button>
+          </mat-menu>
+      <div class="bottom-banner">
+
+
+        <h5 class="cardTitle text-white card-title">{{ track.track_name }}</h5>
+        <p class="uploaded-text grey-text">Uploaded {{ track.createdDate | date}}</p>
+        <div class="player-opened-wrapper-center">
+          <div class="player-opened-wrapper">
+            <grid-item-player>
+              <button mat-mini-fab color="primary" (click)="triggerPreviousTrack(track)">
+                <i class="material-icons">skip_previous</i>
+              </button>
+            </grid-item-player>
+            <grid-item-player>
+              <button mat-mini-fab color="primary" (click)="playPause(track)">
+                <mat-progress-spinner *ngIf="trackLoading" class="upload-spinner" mode="indeterminate" color="accent"
+                  diameter="25" strokeWidth="3"></mat-progress-spinner>
+                <i class="material-icons" *ngIf="!track.isPlaying">play_arrow</i>
+
+                <i class="material-icons" *ngIf="track.isPlaying">pause</i>
+              </button>
+            </grid-item-player>
+            <grid-item-player>
+              <button mat-mini-fab color="primary" (click)="triggerNextTrack(track)">
+                <i class="material-icons">skip_next</i>
+              </button>
+            </grid-item-player>
+          </div>
+        </div>
+
+
+
+        <button mat-icon-button class="thumbs-up" (click)="likeTrack(track)">
+          <i [matBadge]="track.likes" matBadgeColor="accent" class="material-icons text-white" *ngIf="!track.isLiked">favorite_border</i>
+          <i [matBadge]="track.likes" matBadgeColor="accent" class="material-icons color_green;" color="primary" *ngIf="track.isLiked">favorite</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

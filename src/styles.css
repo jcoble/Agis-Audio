@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+ 
+* {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+    background-image: url(/assets/blush-pink-fade-marble-textures-plain.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+
+}
+
+.trackDialog .mat-dialog-container {
+    background: white;
+}
+
+footer {
+    z-index: 5;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+    background: white;
+  } 
+
+app-root {
+    background-color: rgba(0,0,0,0);
+}

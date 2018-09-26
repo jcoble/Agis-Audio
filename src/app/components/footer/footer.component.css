@@ -1,0 +1,238 @@
+
+
+
+
+.upload-spinner {
+  position: absolute;
+  margin: auto !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0
+}
+
+.example-margin {
+  margin: 10px 5px;
+}
+
+.content-wrapper { 
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+  height: 4em;
+}
+
+.play-icon {
+  font-size: 24px;
+}
+
+.player-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 4em;
+}
+
+grid-item {
+  display: flex;
+  /* new */
+  align-items: center;
+  /* new */
+  justify-content: center;
+  /* new */
+  height: 4em;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+@media(max-height: 768px) {
+  .content-wrapper {
+    height: 4em;
+  }
+
+  .player-wrapper {
+    height: 4em;
+  }
+
+  grid-item {
+    height: 3em;
+  }
+}
+
+p {
+  display: flex;
+  /* new */
+  align-items: center;
+  /* new */
+  justify-content: center;
+  /* new */
+  margin-bottom: 0px !important;
+}
+
+#secs {
+  margin: 0px;
+}
+
+#trackName {
+  position: relative;
+  font-size: 1.5em;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-height: 2.5em;
+  line-height: 1.2em;
+  color: white;
+}
+
+@media (max-width: 576px) {
+  #trackName {
+    font-size: 1em;
+  }
+  #secs {
+    display: none;
+  }
+  .seconds-grid-item {
+    display: none;
+  }
+  /* button {
+    width: ;
+  } */
+  .step {
+    display: none;
+  }
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    height: 100%;
+  }
+  .player-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 5em;
+    min-height: 3.5em;
+    /* margin-right: 5px; */
+  }
+  .play-icon {
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px;
+  }
+}
+
+
+@media (max-width: 900px) {
+  #trackName {
+    font-size: 1em;
+  }
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.slider {
+  width: 100%;
+  height: 12px;
+  top: 0px;
+  
+}
+
+input[type="range"] {
+  position: absolute;
+  top: 0px;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 8px;
+  margin: 0;
+  border: none;
+  padding: none;
+  /* padding: 1px 2px; */
+  /* border-radius: 10px; */
+  background: grey;
+  /* box-shadow: inset 0 1px 0 0 grey, inset 0 -1px 0 0 #3a3d42;
+    -webkit-box-shadow: inset 0 1px 0 0 grey, inset 0 -1px 0 0 #3a3d42; */
+  outline: none;
+  z-index: 1;
+  /* no focus outline */
+}
+
+input[type="range"]::-moz-range-track {
+  top: 0px;
+  border: inherit;
+  background: transparent;
+}
+
+input[type="range"]::-ms-track {
+  top: 0px;
+  border: inherit;
+  color: transparent;
+  /* don't drawn vertical reference line */
+  background: transparent;
+}
+
+input[type="range"]::-ms-fill-lower, input[type="range"]::-ms-fill-upper {
+  background: transparent;
+  top: 0px;
+}
+
+input[type="range"]::-ms-tooltip {
+  top: 0px;
+  display: none;
+}
+
+/* thumb */
+
+input[type="range"]::-webkit-slider-thumb {
+  top: 0px;
+  -webkit-appearance: none;
+  width: 40px;
+  height: 16px;
+  border: none;
+  border-radius: 15px;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #529de1), color-stop(100%, #245e8f));
+  /* android <= 2.2 */
+  background-image: -webkit-linear-gradient(top, #ff9800 0, #ff9800 100%);
+  /* older mobile safari and android > 2.2 */
+  ;
+  background-image: linear-gradient(to bottom, #ff9800 0, #ff9800 100%);
+  /* W3C */
+}
+
+input[type="range"]::-moz-range-thumb {
+  top: 0px;
+  width: 40px;
+  height: 16px;
+  border: none;
+  border-radius: 15px;
+  background-image: linear-gradient(to bottom, #ff9800 0, #ff9800 100%);
+  /* W3C */
+}
+
+input[type="range"]::-ms-thumb {
+  top: 0px;
+  width: 40px;
+  height: 16px;
+  border-radius: 15px;
+  border: 0;
+  background-image: linear-gradient(to bottom, #ff9800 0, #ff9800 100%);
+  /* W3C */
+}
+
+.hidden-progress {
+  display: none;
+}
+
+.progress-wrapper {
+  position: relative;
+  width: 100%;
+  height: 30%;
+  margin-left: 2em;
+}
+
+mat-progress-bar {
+  bottom: 5px;
+}
