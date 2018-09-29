@@ -1,0 +1,51 @@
+<div id="scrollMe" #scrollMe class="scroll-container example-scrolling-content">
+  <nav [addAttributeOn]='"about"' myClassToAdd="background">
+      <button mat-raised-button color="accent" routerLink="/login" role="button" class="mr-2">Login</button>
+      <button mat-raised-button color="primary" routerLink="/register" role="button">Register</button>
+  </nav>
+  <div class="bg"></div>
+  <div class="jumbotron" #jumbotron id="jumbotron">
+    <div class="container jumbotron-container hidden vertical-center">
+      <div class="header-container text-center">
+          
+        <h1 class="text-center">Agis Audio</h1>
+        <h5 class="text-center">Listen and Share your music and playlists.</h5>
+        <button mat-raised-button color="accent" routerLink="/login" role="button" class="mr-2">Login</button>
+        <button mat-raised-button color="primary" routerLink="/register" role="button">Register</button>
+        <!-- <div class="button-container"> -->
+          <div #bounce id="bounce" class="bounce">
+            <button (click)="scrollBottom()" id="downArrow" class="down-arrow" style="background-color: transparent; border-color: transparent; cursor: pointer;">
+              <img id="downArrowIcon" src="/assets/baseline_keyboard_arrow_down_black_18dp.png" height="35" />
+            </button>
+
+          <!-- </div> -->
+        </div>
+      </div>
+      <!-- <div class="afterJumboTron">
+
+            </div> -->
+
+    </div>
+  </div>
+  <div id="about" #about class="about-container">
+
+    <div class="inside">
+      <div class="up-button-container">
+        <div id="bounce2" class="bounce2">
+          <button (click)="scrollTop()" id="upArrow" class="down-arrow" style="background-color: transparent; border-color: transparent; cursor: pointer;"
+            href="#bottom">
+            <img id="upArrowIcon" src="/assets/baseline_keyboard_arrow_up_white_18dp.png" height="35" />
+          </button> 
+        </div>
+      </div>
+      <div class="header-container nav-bar-add">
+        <h2>Agis Audio</h2>
+        <p>Add youtube links to create playlists and share them with the world.</p>
+        <p>The more you share, the more
+          others have to listen to.</p>
+        <p>If you have any issues, concerns or suggestions please contact admin@agisaudio.com.</p>
+      </div>
+    </div>
+    
+  </div>
+</div>

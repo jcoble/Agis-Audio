@@ -1,0 +1,182 @@
+
+
+/* JUMBOTRON */
+.jumbotron {
+    height: 100%;
+    color: white;
+    background: transparent;
+    background-size: cover;
+    margin-bottom: 0px;
+}
+
+.bg {
+    /*background: url('Images/56759845-freedom-wallpapers.jpg') no-repeat center center;*/
+    background: url('/assets/blush-pink-fade-marble-textures-plain.jpg') ;
+    background-size: cover;
+    position: fixed;
+    width: 100%;
+    height: 100%; /*same height as jumbotron */
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-position: 50% 50%;
+}
+
+.bounce {
+    background:transparent;
+    position:relative; 
+    border-radius: 50px;
+    margin-top: 7em;
+}
+
+.bounce2 {
+    background:transparent;
+    position:relative;
+    border-radius: 50px;
+}
+
+input.down-arrow {
+	background-image: url('/assets/baseline_keyboard_arrow_down_black_18dp.png');
+	background-repeat: no-repeat;
+	cursor: pointer;
+	
+}
+
+.button-container {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	bottom: 3em;
+	position: absolute;
+    width: 100%;
+    height: 50px;
+}
+
+.up-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	top: 7em;
+	position: absolute;
+    width: 100%;
+    height: 50px;
+}
+
+.jumbotron-container {
+	position: relative;
+	display: flex;
+	height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.end {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100%; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+  margin-bottom: 100px;
+  justify-content: center;
+  
+}
+
+.about-container {
+    height: 100%;
+	width: 100%;
+    background-color: hsl(60, 10%, 10%);
+    // background-image: url('/assets/waveform.png');
+    // background-repeat: no-repeat;
+    // background-size: 100% 100%;
+}
+
+.background {
+    // background-color: hsl(60, 10%, 10%);
+    background-color: rgba(grey, 0.9);
+    opacity: 1;
+}
+
+.example-scrolling-content {
+    overflow: auto;
+    height: 100%;
+  }
+
+nav {
+    position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  opacity: 0;
+  background-color: transparent;
+  -webkit-transition: opacity .5s;
+  -moz-transition: opacity .5s;
+  -ms-transition: opacity .5s;
+  -o-transition: opacity .5s;
+  transition: opacity .5s;
+  display: flex;
+  justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+// .nav-bar-add {
+//     background-color: transparent;
+//     // opacity: 0;
+//     -webkit-transition: background .5s;
+//   -moz-transition: background .5s;
+//   -ms-transition: background .5s;
+//   -o-transition: background .5s;
+//   transition: background .5s;
+//     -webkit-transition: color .5s;
+//   -moz-transition: color .5s;
+//   -ms-transition: color .5s;
+//   -o-transition: color .5s;
+//   transition: color .5s;
+// }
+
+.white {
+    background-color: rgba(grey, 0.9);
+}
+
+nav>button {
+    z-index: 2;
+}
+
+.inside {
+    position: relative;
+	display: flex;
+	height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-bar-add {
+    opacity: 0;
+    margin-top: -100px;
+}
+
+h2 {
+	text-align: center;
+	color: white;
+}
+
+p {
+	text-align: center;
+	color: #ff9800;
+    font-size: 1.2em;
+}
+
+.text-center {
+    color: black;
+}
+
+
+
+
+

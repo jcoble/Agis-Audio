@@ -33,8 +33,7 @@ export class YoutubeTracksComponent implements OnInit {
     let track: Track = {
       youtube_link: id
     }
-    console.log(track);
-    
+
     this.filesService.getYouTubeTracks(track).subscribe(tracks => {
       this.isLoading = false;
       this.tracks = tracks;
@@ -50,8 +49,6 @@ export class YoutubeTracksComponent implements OnInit {
     }
     let userID = localStorage.getItem("Id");
     this.filesService.getAllUserFolders(userID).subscribe(folders => {
-      console.log(folders);
-
       const dialogRef = this.dialog.open(PlaylistDialogComponent, {
         data: folders
       });
@@ -64,9 +61,6 @@ export class YoutubeTracksComponent implements OnInit {
           track.createdDate = new Date();
           track.user_id = userID;
           track.genre = this.genre;
-
-          console.log(track);
-
           this.filesService.newTrack(track).subscribe(data => {
             if (data) {
               this.filesService.addToPlaylist(data, folders).subscribe(() => {

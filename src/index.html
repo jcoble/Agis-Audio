@@ -11,6 +11,8 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/x-icon" href="/assets/icon-128x128.png">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/progressively/dist/progressively.min.css"> -->
+  
   <style>
 
     body { margin-top: 100px; background-color: #fcf8f5; color: #fff; text-align:center; }
@@ -40,14 +42,19 @@
 </head>
 
 <body>
-  <app-root>
+  <!-- <div class="progressive__bg progressive--not-loaded bg" data-progressive="/assets/blush-pink-fade-marble-textures-plain.jpg" style="background-image: url('/assets/blush-pink-fade-marble-textures-plain-lowly.jpg')"> -->
+    <app-root> 
 
-    <div id="loading"></div>
-    <noscript>
-        <h3 style="color: #fcf8f5; font-family: Helvetica; margin: 2rem;">
-            Sorry, but app is not available without javascript
-        </h3>
-      </noscript>
-  </app-root>
+        <div id="loading"></div>
+        <noscript>
+            <h3 style="color: #fcf8f5; font-family: Helvetica; margin: 2rem;"> 
+                Sorry, but app is not available without javascript
+            </h3>
+          </noscript>
+      </app-root>
+  <!-- </div> -->
+<!-- </script>
+  <script src="https://unpkg.com/progressively/dist/progressively.min.js"></script>
+</script> -->
 </body>
 </html>

@@ -50,7 +50,6 @@ export class ResetpasswordComponent implements OnInit {
       let code = params["code"];      
       if(code) {
         this.code = atob(code) || "";
-        console.log(this.user.code);
       }
     });
   }

@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
     this.dialogData = {
       email: ''
     }
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(["/"]);
-    }
+    // if (this.authService.isLoggedIn()) {
+    //   this.router.navigate(["/playlists"]);
+    // }
   }
 
   onSubmit() {
@@ -53,9 +53,7 @@ export class LoginComponent implements OnInit {
       }, // success path
       error => {
         this.isLoggingIn = false;
-        console.log(error);
         if (error.status == 400) {
-          console.log(error.error.error_description);
           this.errors.push(error.error.error_description);
         } else {
           this.errors.push("Something went wrong");
@@ -74,10 +72,8 @@ export class LoginComponent implements OnInit {
       data: {email: this.email}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result) {
         this.email = result;
-        console.log(this.email);
         this.dialogData.email = this.email;
        
         this.authService.forgotPassword(this.dialogData).subscribe(

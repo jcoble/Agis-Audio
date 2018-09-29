@@ -18,6 +18,7 @@ import * as moment from "moment";
 import { Subject } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { passwordReset } from '../models/passwordReset';
+import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 
 
 const httpOptions = {
@@ -41,14 +42,18 @@ export class AuthService {
   private loggedIn = new Subject<boolean>();
   loggedIn$ = this.loggedIn.asObservable();
 
+  private handleError: HandleError;
+
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
     private http: HttpClient,
     private toastr: ToastrService,
     private snackbar: MatSnackBar,
-    private global: PublicVariablesService
+    private global: PublicVariablesService,
+    httpErrorHandler: HttpErrorHandler
   ) {
+    this.handleError = httpErrorHandler.createHandleError('AuthService');
   }
 
   login(email: string, password: string): Observable<any> {
@@ -64,7 +69,10 @@ export class AuthService {
         duration: 3000
       })
       this.loggedIn.next(true);
-    });
+    }).pipe(
+      retry(3),
+      catchError(this.handleError('login', null))
+    );
   }
 
   getAuthToken() : string {
@@ -120,6 +128,9 @@ export class AuthService {
     return this.http.post<RegisterReturnData>(
       this.apiUrl + "api/Account/Register",
       params
+    ).pipe(
+      retry(3),
+      catchError(this.handleError('registerWithEmailPass', null))
     );
   }
 
@@ -134,27 +145,8 @@ export class AuthService {
     localStorage.setItem("last_name", tokenData.last_name);
     localStorage.setItem("first_name", tokenData.first_name);
     localStorage.setItem("Id", tokenData.Id);
-    // localStorage.setItem("googleToken", tokenData.googleToken);
-
     localStorage.setItem("tokenData", JSON.stringify(tokenData));
-    //log into google with SDK 8/23/18
-    // this.googleSDKLogin(tokenData);
   }
-
-  // private googleSDKLogin(tokenData: TokenData) {
-
-  //   console.log(tokenData.googleToken);
-    
-  //   this.afAuth.auth.signInWithCustomToken(tokenData.googleToken).catch(function(error) {
-  //     // Handle Errors here.
-  //     var errorCode = error.code;
-  //     var errorMessage = error.message;
-
-  //     console.log(error);
-  //   });
-
-    
-  // }
 
   forgotPassword (dialogData: DialogData): Observable<any>{
     const url = this.apiUrl + 'api/Account/ForgotPassword';

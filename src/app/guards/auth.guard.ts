@@ -17,17 +17,19 @@ export class AuthGuard implements CanActivate {
     console.log(this.router.url);
     
     if (localStorage.getItem("tokenData")) {
-      console.log('token');
-      
+      console.log(this.router.url);
+      // if (this.router.url == "/") {
+      //   this.router.navigate(["/playlists"])
+      // }
       return true;
     }
-    console.log(this.router.url);
-    if (this.router.url == "/") {
-      console.log('inside external link redirrect');
+    // console.log(this.router.url);
+    // if (this.router.url == "/") {
+    //   console.log('inside external link redirrect');
       
-      window.location.href = "https://www.agisaudio.com/app/index.html"
-    }else  {
-      this.router.navigate(["/login"]);
-    }
+    //   window.location.href = "https://www.agisaudio.com/app/index.html"
+    // }else  {
+      this.router.navigate(["/login"]); 
+    // }
   }
 }

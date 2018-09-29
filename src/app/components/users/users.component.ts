@@ -21,8 +21,6 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('onOnit');
-    
     this.isLoading = true;
     this.getUsers();
   }

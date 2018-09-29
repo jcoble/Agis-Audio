@@ -47,7 +47,7 @@ import { ResetpasswordComponent } from './components/resetpassword/resetpassword
 import { MatAutocompleteModule } from '@angular/material';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { LandingComponent } from './components/landing/landing.component';
-import { ParallaxModule, ParallaxConfig } from 'ngx-parallax';
+// import { ParallaxModule, ParallaxConfig } from 'ngx-parallax';
 import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { YoutubeDialogComponent } from './components/youtube-dialog/youtube-dialog.component';
 import { ShareComponent } from './components/share/share.component';
@@ -55,7 +55,13 @@ import { PlaylistDialogComponent } from './components/playlist-dialog/playlist-d
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { TrendingComponent } from './components/trending/trending.component';
 import { YoutubeTracksComponent } from './components/youtube-tracks/youtube-tracks.component';
-
+import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
+import { HomeComponent } from './components/home/home.component';
+import { ParallaxScrollModule } from 'ng2-parallaxscroll';
+import { ScrollToModule } from 'ng2-scroll-to-el';
+import { RedblackDirective } from './directives/redblack.directive';
+import { BackgroundfadeinDirective } from './directives/backgroundfadein.directive';
+import { HttpErrorHandler } from './services/http-error-handler.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,11 +89,13 @@ import { YoutubeTracksComponent } from './components/youtube-tracks/youtube-trac
     PlaylistDialogComponent,
     BottomSheetComponent,
     TrendingComponent,
-    YoutubeTracksComponent
+    YoutubeTracksComponent,
+    HomeComponent,
+    RedblackDirective,
+    BackgroundfadeinDirective
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'clientpanel'),
     AngularFirestoreModule,
@@ -128,15 +136,18 @@ import { YoutubeTracksComponent } from './components/youtube-tracks/youtube-trac
     MatAutocompleteModule,
     MatListModule,
     MatDividerModule,
-    ParallaxModule,
     YoutubePlayerModule,
     MatCheckboxModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    LazyLoadImagesModule,
+    ParallaxScrollModule,
+    ScrollToModule.forRoot()
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [FilesService, AuthService, CommonServiceService, UserService, 
+  providers: [FilesService, AuthService, CommonServiceService, UserService, HttpErrorHandler,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent, LoginComponent, DialogResetPassDialog, DialogNewFolderDialog, YoutubeDialogComponent, PlaylistDialogComponent, BottomSheetComponent]
 })
 export class AppModule { }
+ 

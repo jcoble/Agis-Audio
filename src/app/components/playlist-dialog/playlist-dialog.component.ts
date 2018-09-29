@@ -51,14 +51,6 @@ export class PlaylistDialogComponent implements OnInit {
 
   onClose(): void {
     let addFolders: Folder[];
-    // this.selected = this.playlistFormGroup.value;
-    // console.log(this.selected);
-    
-    // this.folders.forEach(folder => {
-    //   if (this.selected.includes(folder.folder_name)) {
-    //     addFolders.push(folder);
-    //   }
-    // });
     if(this.selected.length == 0) {
       this.snackbar.open("You must select at least one playlist!", "Ok", {
         duration: 3000

@@ -1,6 +1,6 @@
 import { UserService } from "./../../services/user.service";
 import { DialogComponent } from "./../dialog/dialog.component";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params, Scroll } from "@angular/router";
 import { FilesService } from "./../../services/files.service";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Track } from "../../models/tracks";
@@ -17,6 +17,8 @@ import {
 } from "../../../../node_modules/@angular/material";
 import { PlaylistDialogComponent } from "../playlist-dialog/playlist-dialog.component";
 import { YoutubeDialogComponent } from "../youtube-dialog/youtube-dialog.component";
+import { ViewportScroller } from "@angular/common";
+import { filter } from "rxjs/operators";
 
 @Component({
   selector: "app-tracks",
@@ -34,6 +36,9 @@ export class TracksComponent implements OnInit {
   fU: string;
   @ViewChild(MatMenuTrigger)
   trigger: MatMenuTrigger;
+
+  scrollPosition: [number, number];
+  
   constructor(
     private filesService: FilesService,
     private commonService: CommonServiceService,
@@ -42,8 +47,11 @@ export class TracksComponent implements OnInit {
     private toastr: ToastrService,
     private dialog: MatDialog,
     private userService: UserService,
-    public snackbar: MatSnackBar
-  ) {}
+    public snackbar: MatSnackBar,
+    private viewportScroller: ViewportScroller
+  ) {
+    
+  }
 
   ngOnInit() {
     // Get id from url
@@ -280,16 +288,12 @@ export class TracksComponent implements OnInit {
           youtube_link: data.link,
           genre: data.genre
         };
-        console.log(trackToUpload);
 
         this.filesService.newTrack(trackToUpload).subscribe(data => {
           if(data){
             this.filesService.getTracks(this.id).subscribe(tracks => {
               this.isLoading = false;
               this.tracks = this.removeMp3(tracks);
-              // this.tracks = tracks;
-              // console.log(this.tracks);
-        
               //set each isPlaying to false for each track
               this.tracks.forEach(track => {
                 
@@ -319,7 +323,7 @@ export class TracksComponent implements OnInit {
               duration: 3000
             });
           }
-          error => {
+          error => {            
             this.commonService.notifyYTUploadComplete();
             this.snackbar.open("This Link can't be downloaded!", "Ok", {
               duration: 3000
@@ -333,7 +337,7 @@ export class TracksComponent implements OnInit {
           this.snackbar.open("Track Added!", "Ok", {
             duration: 3000
           });
-        });
+        })
       } else {
         console.log("not");
       }

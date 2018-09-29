@@ -157,8 +157,6 @@ export class FooterComponent implements OnInit, OnDestroy {
   }
 
   skipPreviousTrack(): void {
-    console.log("inside skipPreviousTrack");
-
     let currentTrackList = this.commonService.getCurrentTrackList();
     let currentTrackIndex = currentTrackList.findIndex(
       x => x.id === this.track.id
@@ -172,7 +170,6 @@ export class FooterComponent implements OnInit, OnDestroy {
   }
 
   skipNextTrack(): void {
-    console.log("inside skipNextTrack");
     let currentTrackList = this.commonService.getCurrentTrackList();
     let currentTrackIndex = currentTrackList.findIndex(
       x => x.id === this.track.id
@@ -262,8 +259,6 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   triggerPlayPause() {
     // if (this.track.url != "") {
-    console.log("triggerPlayPause");
-
     if (!this.trackLoading) {
       this.track.isPlaying = !this.track.isPlaying;
       this.commonService.changeTrack(this.track);
@@ -382,7 +377,6 @@ export class FooterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("ondestroy");
     this.audio.pause();
     this.currentTime = 0;
     this.audio.src = "";
@@ -390,65 +384,4 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.audio.load();
     this.commonService.changeTrack(null);
   }
-
-  // // get notified when the download URL is available
-  // this.task
-  //   .snapshotChanges(snapshot => trackToUpload.url = snapshot.downloadURL)
-  //   .pipe(
-  //     finalize(() => {
-  //       this.downloadURL = this.ref.getDownloadURL();
-
-  //       this.filesService.newTrack(trackToUpload, trackToUpload.url).subscribe(
-  //         data => {
-  //           this.isUploading = false;
-  //           this.commonService.notifyUploadComplete(folder);
-  //         },
-  //         error => {
-  //           console.log(error);
-  //         }
-  //       )
-  //     })
-  //   )
-  //   .subscribe();
-
-  // this.ref.getDownloadURL()(url => {
-  //     const dlUrl = url;
-  //     trackToUpload.url = dlUrl;
-  //     this.filesService.newTrack(trackToUpload, dlUrl).subscribe(
-  //       data => {
-  //         this.isUploading = false;
-  //         this.commonService.notifyUploadComplete(folder);
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       }
-  //     )
-  //   })
-
-  // this.uploadState = this.task.snapshotChanges().pipe(map(s => ));
-  // this.uploadProgress = this.task.percentageChanges();
-
-  // this.downloadURL = this.task.downloadURL();
-
-  // pipe(map(s => (s.bytesTransferred / s.totalBytes) * 100));
-
-  //   this.task.then(snapshot => {
-  //     console.log('then.task');
-  //     this.track.url = snapshot.downloadURL;
-  //     this.track.user_id = folder.user_id;
-  //     this.track.folder_id = folder.id;
-
-  //     this.filesService.newTrack(trackToUpload, this.track.url).subscribe(
-  //             data => {
-  //               this.isUploading = false;
-  //               this.commonService.notifyUploadComplete(folder);
-  //             },
-  //             error => {
-  //               console.log(error);
-  //             }
-  //           )
-  //     // this.modalMessage = 'File(s) Uploaded';
-  //     // this.isModalShown = true;
-
-  //   });
 }

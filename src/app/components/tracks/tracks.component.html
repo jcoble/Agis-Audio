@@ -17,9 +17,9 @@
       mode="indeterminate"></mat-progress-spinner>
     <!-- <mat-progress-spinner *ngIf="isLoading" style="margin:0 auto;height:10px;width:10px" mode="indeterminate"></mat-progress-spinner> -->
 
-    <ul class="list-unstyled  col-lg-4" *ngFor="let track of tracks">
+    <ul class="list-unstyled  col-lg-4" *ngFor="let track of tracks" lazy-load-images>
       <!-- <li class="card"  style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);"> -->
-      <li [style.backgroundImage]="'url('+ track.thumbnail +')'" class="card  h-100"> 
+      <li [attr.data-background-src]="track.thumbnail" class="card  h-100"> 
 
         <!--Card image-->
         <!--           <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap">

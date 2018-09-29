@@ -4,7 +4,7 @@
   <!-- <matb-navbar #navMain class="navbar " SideClass="navbar navbar-light navbar-dark purple  darken-3 fixed-top z-depth-0" > -->
   <!-- <matb-navbar #navMain class="navbar " SideClass="navbar navbar-expand-lg navbar-light navbar-dark purple  darken-3 mb-0 fixed-top"> -->
   <!-- Navbar brand -->
-  <div class="jesse-container">
+  <div class="jesse-container" *ngIf="isLoggedIn">
 
     <grid-item>
       <!-- <button mat-icon-button *ngIf="!isSearching" (click)="back()">
@@ -14,7 +14,7 @@
 
     <grid-item>
       <form [ngClass]="depth" (mouseover)="depth='z-depth-3'" (mouseout)="depth='z-depth-1'">
-          <button mat-icon-button *ngIf="!isSearching" (click)="back()">
+          <button type="button" mat-icon-button *ngIf="!isSearching" (click)="back()">
               <i style="font-size: 2em; color: black; padding: 0px; margin:  7px 0 0 0; height: 1.7em; width: 1.2em;" class="material-icons">arrow_back_ios</i>
             </button>
           <button type="submit" class="button-center" mat-icon-button class="toggle-button" (click)="onSubmit(search.value)">
@@ -23,7 +23,7 @@
         <input type="text" #search name="search" id="search" placeholder="Search Tracks..." #search [(ngModel)]="value">
         <!-- <button id="toggle-button" ><img src="/src/assets/baseline_menu_black_18dp.png"></button> -->
 
-        <button class="button-center" mat-icon-button class="toggle-button" (click)="toggleSideNav()">
+        <button type="button" class="button-center" mat-icon-button class="toggle-button" (click)="toggleSideNav()">
           <i style="font-size: 2em; color: black; padding: 0px; margin: 7px 0 0 0; height: 1.7em; width: 1.2em;" class="material-icons">menu</i>
         </button>
 

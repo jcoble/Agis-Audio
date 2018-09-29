@@ -125,7 +125,6 @@ export class FoldersComponent implements OnInit {
     });
 
     this.initialiseScreen();
-    console.log(this.location.path(false));
     this._ruta = "";
     this.router.url.split("/").forEach(element => {
       if (element !== "" && this._ruta === "") this._ruta = "/" + element;
@@ -181,11 +180,17 @@ export class FoldersComponent implements OnInit {
       user_id: user_id,
       folder_path: folder_path
     };
+console.log('getting folders');
 
     this.filesService.getFolders(folder).subscribe(folders => {
       this.folders = folders;
       this.isLoading = false;
-    });
+      
+    }),
+    error => {
+      this.isLoading = false;
+      console.log('asdfkjsd');
+    };
   }
 
   getNewFolders(folder: Folder) {
@@ -219,19 +224,6 @@ export class FoldersComponent implements OnInit {
 
   addFiles(files: FileList) {
     this.isUploading = true;
-    // if (files && files[0]) {
-
-    //   for (var i = 0; i < files.length; i++) {
-    //     this.files = files;
-
-    //     this.commonService.startUpload({
-    //       file: files[i],
-    //       folder: this.uploadFolder
-    //     });
-    //     console.log(i);
-    //   }
-    //   console.log('done');
-    // }
     if (files && files[0]) {
       this.commonService.startUpload({
         files: files,
@@ -291,8 +283,6 @@ export class FoldersComponent implements OnInit {
           youtube_link: data.link,
           genre: data.genre
         };
-        console.log(trackToUpload);
-
         this.filesService.newTrack(trackToUpload).subscribe(data => {
           this.commonService.notifyUploadComplete(folder);
           this.commonService.notifyYTUploadComplete();
@@ -329,7 +319,6 @@ export class FoldersComponent implements OnInit {
           youtube_link: data.link,
           genre: data.genre
         };
-        console.log(trackToUpload);
         this.snackbar.open("This WILL take a long time to complete!", "Ok", {
           duration: 3000
         });

@@ -2,7 +2,7 @@
     display:grid;
     grid-template-columns: 1fr 3fr 1fr;
     margin-bottom: 10em;
-    margin-top: 70px;
+    margin-top: 30px;
 }
 
 .main-wrapper {
@@ -34,5 +34,9 @@
     bottom: 0;
     left: 0;
     right: 0
+}
+
+.card {
+    border-radius: 7px;
 }
 

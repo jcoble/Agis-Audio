@@ -15,7 +15,6 @@ export class TrendingComponent implements OnInit {
   }
 
   doTopGenre() {
-    console.log(this.selectedGenre);
     this.child.getTrendingGenre(this.selectedGenre);
   }
 

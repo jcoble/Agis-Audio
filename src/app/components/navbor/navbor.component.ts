@@ -30,21 +30,7 @@ export class NavborComponent implements OnInit, AfterViewInit {
   isSearching: boolean = false;
   value = '';
   depth: string = 'z-depth-1';
-  // @HostListener('click')
-  // clickInside() {
-  //   console.log('inside');
-    
-  // }
   
-  // @HostListener('document:click', ['$event'])
-  // clickout(event: Event) {
-  //   if (!this.wasInside) {
-  //     if (this.navbaridRef.shown) {
-  //       this.navbaridRef.toggle(event);
-  //     }
-  //   }
-  //   this.wasInside = false;
-  // }
 
   constructor(
     private authService: AuthService,
@@ -60,6 +46,8 @@ export class NavborComponent implements OnInit, AfterViewInit {
       status => { 
         this.isLoggedIn = status;
       }); 
+
+      
   }
 
 
@@ -74,12 +62,6 @@ export class NavborComponent implements OnInit, AfterViewInit {
   toggleSideNav() {
     this.commenServie.toggleSideNav();
   }
-  // onClickNav(event): void {
-  //   console.log(event)
-  //   if (this.navbaridRef.shown) {
-  //     this.navbaridRef.toggle(event);
-  //   }
-  // }
 
   onLogoutClick() {
     // if (this.navbaridRef.shown) {

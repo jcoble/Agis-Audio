@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
       password: ''
     }
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(["/"]);
+      this.router.navigate(["/playlists"]);
     }
   }
 
@@ -62,6 +62,10 @@ export class RegisterComponent implements OnInit {
     //       timeout: 4000
     //     });
     //   });
+  }
+
+  onLoginClick(){
+    this.router.navigate(['/login']);
   }
 
   onSubmit({value, valid}: {value: User, valid: boolean}) {

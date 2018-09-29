@@ -86,8 +86,6 @@ export class BottomSheetComponent implements OnInit {
     if (track.id != null) {
       let userID = localStorage.getItem("Id");
       this.filesService.getAllUserFolders(userID).subscribe(folders => {
-        console.log(folders);
-
         const dialogRef = this.dialog.open(PlaylistDialogComponent, {
           data: folders
         });

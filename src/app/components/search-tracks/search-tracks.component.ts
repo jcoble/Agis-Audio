@@ -89,33 +89,16 @@ export class SearchTracksComponent implements OnInit {
       }
   }
 
-  // sortTracks(id: string) {
-  //   if (id == "recent-0") {
-  //     this.search_label = "Recent"
-  //     console.log(this.tracks);
-  //     this.tracks.sort(this.date_sort_desc);
-  //     // this.tracks.sort(this.date_sort_desc)
-  //   }else if (id == "most-liked-1") {
-  //     this.search_label = "Most Liked"
-  //     this.tracks.sort((a,b) => b.likes - a.likes);
-  //   }
-  // }
-
   date_sort_desc (date1, date2) {
     // This is a comparison function that will result in dates being sorted in
     // DESCENDING order.
     if (new Date(date1) > new Date(date2)) {
-      console.log(-1);
       return -1;
     }
      
     if (new Date(date1) < new Date(date2)) {
-      console.log(1);
       return 1;
     }
-
-     console.log(0);
-     
     return 0;
   };
 
@@ -126,22 +109,6 @@ export class SearchTracksComponent implements OnInit {
       this.isLoading = false;
       //   //set each isPlaying to false for each track
       this.tracks.forEach(track => {
-        // is the track playing the same as this track?
-        // if (track.youtube_link) {
-        //   // is the track playing the same as this track?
-        //   if (CommonServiceService.currentTrack != null) {
-        //     if (track.youtube_link != CommonServiceService.currentTrack.youtube_link) {
-        //       track.isPlaying = false;
-        //     } else {
-        //       track.isPlaying = CommonServiceService.currentTrack.isPlaying;
-        //       this.commonService.changeTrack(track);
-        //     }
-        //   }else {
-        //     // if not then make all tracks set to not playing
-        //     track.isPlaying = false;
-        //   }
-        // } else {
-          // is the track playing the same as this track?
           if (CommonServiceService.currentTrack != null) {
             if (track.url != CommonServiceService.currentTrack.url) {
               track.isPlaying = false;
@@ -158,8 +125,7 @@ export class SearchTracksComponent implements OnInit {
           if (track.isLiked == null) {
             track.isLiked = false;
           }
-        // }
-
+      
         //Set isLiked nulls to false
         if (track.isLiked == null) {
           track.isLiked = false;
@@ -181,22 +147,7 @@ export class SearchTracksComponent implements OnInit {
         this.isLoading = false;
         //   //set each isPlaying to false for each track
         this.tracks.forEach(track => {
-          // is the track playing the same as this track?
-          // if (track.youtube_link) {
-          //   // is the track playing the same as this track?
-          //   if (CommonServiceService.currentTrack != null) {
-          //     if (track.youtube_link != CommonServiceService.currentTrack.youtube_link) {
-          //       track.isPlaying = false;
-          //     } else {
-          //       track.isPlaying = CommonServiceService.currentTrack.isPlaying;
-          //       this.commonService.changeTrack(track);
-          //     }
-          //   }else {
-          //     // if not then make all tracks set to not playing
-          //     track.isPlaying = false;
-          //   }
-          // } else {
-            // is the track playing the same as this track?
+          
             if (CommonServiceService.currentTrack != null) {
               if (track.url != CommonServiceService.currentTrack.url) {
                 track.isPlaying = false;
@@ -213,8 +164,6 @@ export class SearchTracksComponent implements OnInit {
             if (track.isLiked == null) {
               track.isLiked = false;
             }
-          // }
-
           //Set isLiked nulls to false
           if (track.isLiked == null) {
             track.isLiked = false;
@@ -234,21 +183,6 @@ export class SearchTracksComponent implements OnInit {
       this.isLoading = false;
       //   //set each isPlaying to false for each track
       this.tracks.forEach(track => {
-        // is the track playing the same as this track?
-        // if (track.youtube_link) {
-        //   // is the track playing the same as this track?
-        //   if (CommonServiceService.currentTrack != null) {
-        //     if (track.youtube_link != CommonServiceService.currentTrack.youtube_link) {
-        //       track.isPlaying = false;
-        //     } else {
-        //       track.isPlaying = CommonServiceService.currentTrack.isPlaying;
-        //       this.commonService.changeTrack(track);
-        //     }
-        //   }else {
-        //     // if not then make all tracks set to not playing
-        //     track.isPlaying = false;
-        //   }
-        // } else {
           // is the track playing the same as this track?
           if (CommonServiceService.currentTrack != null) {
             if (track.url != CommonServiceService.currentTrack.url) {
@@ -266,8 +200,6 @@ export class SearchTracksComponent implements OnInit {
           if (track.isLiked == null) {
             track.isLiked = false;
           }
-        // }
-
         //Set isLiked nulls to false
         if (track.isLiked == null) {
           track.isLiked = false;
@@ -287,21 +219,6 @@ export class SearchTracksComponent implements OnInit {
       this.isLoading = false;
       //   //set each isPlaying to false for each track
       this.tracks.forEach(track => {
-        // is the track playing the same as this track?
-        // if (track.youtube_link) {
-        //   // is the track playing the same as this track?
-        //   if (CommonServiceService.currentTrack != null) {
-        //     if (track.youtube_link != CommonServiceService.currentTrack.youtube_link) {
-        //       track.isPlaying = false;
-        //     } else {
-        //       track.isPlaying = CommonServiceService.currentTrack.isPlaying;
-        //       this.commonService.changeTrack(track);
-        //     }
-        //   }else {
-        //     // if not then make all tracks set to not playing
-        //     track.isPlaying = false;
-        //   }
-        // } else {
           // is the track playing the same as this track?
           if (CommonServiceService.currentTrack != null) {
             if (track.url != CommonServiceService.currentTrack.url) {
@@ -319,8 +236,6 @@ export class SearchTracksComponent implements OnInit {
           if (track.isLiked == null) {
             track.isLiked = false;
           }
-        // }
-
         //Set isLiked nulls to false
         if (track.isLiked == null) {
           track.isLiked = false;
@@ -340,21 +255,6 @@ export class SearchTracksComponent implements OnInit {
       this.isLoading = false;
       //   //set each isPlaying to false for each track
       this.tracks.forEach(track => {
-        // is the track playing the same as this track?
-        // if (track.youtube_link) {
-        //   // is the track playing the same as this track?
-        //   if (CommonServiceService.currentTrack != null) {
-        //     if (track.youtube_link != CommonServiceService.currentTrack.youtube_link) {
-        //       track.isPlaying = false;
-        //     } else {
-        //       track.isPlaying = CommonServiceService.currentTrack.isPlaying;
-        //       this.commonService.changeTrack(track);
-        //     }
-        //   }else {
-        //     // if not then make all tracks set to not playing
-        //     track.isPlaying = false;
-        //   }
-        // } else {
           // is the track playing the same as this track?
           if (CommonServiceService.currentTrack != null) {
             if (track.url != CommonServiceService.currentTrack.url) {
@@ -372,8 +272,6 @@ export class SearchTracksComponent implements OnInit {
           if (track.isLiked == null) {
             track.isLiked = false;
           }
-        // }
-
         //Set isLiked nulls to false
         if (track.isLiked == null) {
           track.isLiked = false;

@@ -20,7 +20,7 @@ import "rxjs/add/operator/do";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import { switchMap, catchError, finalize, filter, take } from "../../../node_modules/rxjs/operators";
-import { ToastrService } from '../../../node_modules/ngx-toastr';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -28,7 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
   tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(private authService: AuthService,
-    private toastr: ToastrService) { }
+    public snackbar: MatSnackBar) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler) : Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any> | any> {
     return next.handle(this.addTokenToRequest(request, this.authService.getAuthToken()))
@@ -42,6 +42,8 @@ export class TokenInterceptor implements HttpInterceptor {
                 this.authService.logout();
                 return <any>Observable.throw(err);
             }
+            return <any>Observable.throw(err);
+            // return <any>this.HandleError(err);
           } else {
             return <any>this.HandleError(err);
           }
@@ -89,8 +91,13 @@ export class TokenInterceptor implements HttpInterceptor {
     }
   }
 
-  private HandleError (error: Response) {
-    this.toastr.error("Oops! Something Went Wrong!");
+  private HandleError (error: HttpErrorResponse) {
+    console.log(error);
+    
+    this.snackbar.open("Oops, Something went wrong", "Ok", {
+      duration: 3000
+    });
+    throwError(error);
   }
 }
 

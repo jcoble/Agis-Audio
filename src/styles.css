@@ -8,8 +8,18 @@ html, body {
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-
+    top: 0;
+    left: 0;
+    background-position: 50% 50%;
 }
+
+/* .bg {
+    height: 100%;
+    background-image: url(/assets/blush-pink-fade-marble-textures-plain.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+} */
 
 .trackDialog .mat-dialog-container {
     background: white;

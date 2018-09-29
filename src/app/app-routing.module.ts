@@ -20,9 +20,10 @@ import { MyplaylistsComponent } from './components/myplaylists/myplaylists.compo
 import { LandingComponent } from './components/landing/landing.component';
 import { ShareComponent } from './components/share/share.component';
 import { YoutubeTracksComponent } from './components/youtube-tracks/youtube-tracks.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: '', component:  PlaylistsComponent, canActivate:[AuthGuard]},
+  { path: '', component:  HomeComponent},
   { path: 'tracks/:id', component:  TracksComponent, canActivate:[AuthGuard]},
   { path: 'uploads/:id', component:  TracksComponent, canActivate:[AuthGuard]},
   { path: 'uploads', component:  UploadComponent, canActivate:[AuthGuard]},
@@ -47,7 +48,7 @@ const routes: Routes = [
 
 @NgModule({
   exports: [ RouterModule ],
-  imports: [ RouterModule.forRoot(routes,{useHash:true, onSameUrlNavigation: 'reload'}) ],
+  imports: [ RouterModule.forRoot(routes,{useHash:true, onSameUrlNavigation: 'reload', scrollPositionRestoration: 'enabled'}) ],
   providers: [AuthGuard],
   declarations: []
 })

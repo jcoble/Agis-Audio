@@ -6,6 +6,7 @@ import { AuthService } from './services/auth.service';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material';
 import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
 // @Directive({ selector: '[scroll]' })
+declare var $: any;
 
 @Component({
   selector: "app-root",
@@ -20,7 +21,7 @@ export class AppComponent {
   isLoggedIn: boolean;
   activeLinkIndex = 0;
   sideNavOpen: boolean = false;
-
+  navbarShown: boolean = true;
   marginTop: number =0;
   showFullFooter: boolean = false;
 
@@ -46,13 +47,33 @@ export class AppComponent {
       }
     ];
     
-    this.authService.isLoggedIn();
+    
     this.auth = authService;
     this.auth.loggedIn$.subscribe(
       status => { 
         this.isLoggedIn = status;
       });
+    
+      this.authService.isLoggedIn();
+    if (localStorage.getItem("tokenData")) {
+      console.log('logged in');
+      
+      this.router.navigate(["/playlists"]);
+      return;
+    }
 
+    // if(this.router.url == "/"){
+    //   this.navbarShown = false;
+    // }else {
+    //   this.navbarShown = true;
+    // }
+    
+    $(window).scroll(function() {
+      let wScroll = $(this).scrollTop();
+      $('.header-container').css({
+        'transform': 'translate(0px, ' + wScroll * 1.53 + '%)'
+      });
+    });
   }
 
   ngOnInit() {
@@ -60,44 +81,31 @@ export class AppComponent {
       this.sideNave.toggle();
       // this.sideNavOpen = !this.sideNavOpen;
     });
-
-    console.log(this.router.url);
   }
 
   onNotifyClicked(message: boolean): void {
     //this.showFullFooter = message;
     this.bottomSheet.open(BottomSheetComponent);
   }
-  // @HostListener('document:scroll', [])
-  //   onScroll(): void {
-  //     console.log('scroll');
-      
-  //   }
 
   getUsers(){
-    console.log('tab1');
     
   }
 
-  // @HostListener('mat-sidenav-content:scroll', ['$event'])
-  //   checkScroll() {
-  //     const componentPosition = this.el.nativeElement.offsetTop
-  //     const scrollPosition = window.pageYOffset
-
-  //     console.log('scroll');
-      
-
-  //   }
-
-  openedd() {
-    console.log('open');
-    
+  openedd() {    
     this.sideNavOpen = true;
   }
 
-  closedd() {
-    console.log('closed');
-    
+  closedd() {    
     this.sideNavOpen = false;
+  }
+
+  onScroll($event) {
+    console.log('scrolling');
+    
+  }
+
+  scrolled(){
+    console.log('scrolling');
   }
 }
