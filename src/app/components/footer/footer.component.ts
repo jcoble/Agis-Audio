@@ -34,7 +34,7 @@ export class FooterComponent implements OnInit, OnDestroy {
     id: null,
     user_id: "",
     url: "",
-    track_name: "Agis Audio",
+    track_name: "Spartan! Click here for more player controls",
     createdDate: null,
     folder_id: null,
     isPlaying: false

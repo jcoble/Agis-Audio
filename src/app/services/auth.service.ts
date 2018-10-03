@@ -59,7 +59,7 @@ export class AuthService {
 
     return this.http.post<TokenData>(this.apiUrl + "Token", params).pipe(map(res => {
       this.setSession(res);
-      this.snackbar.open('You are now logged in!', 'Ok',{
+      this.snackbar.open('You are now logged in, Spartan!', 'Ok',{
         duration: 3000
       })
       this.loggedIn.next(true);

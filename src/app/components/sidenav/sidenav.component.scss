@@ -24,9 +24,19 @@ grid-item {
 
 .top-box-container {
   display: grid;
-  grid-template-rows: auto 20px 20px;
+  grid-template-rows: auto 20px;
   height: 100%;
   width: 100%;
+}
+
+.spartan-logo {
+  position: relative;
+
+  // top: 50%;
+  // left: 50%;
+  // transform: translateX(-50%) translateY(-50%);
+  max-width: 80px;
+  max-height: 80px;
 }
 
 .bottom-box {
