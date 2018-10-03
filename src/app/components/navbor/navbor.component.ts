@@ -3,7 +3,6 @@ import { element } from 'protractor';
 import { AuthService } from "./../../services/auth.service";
 import { Component, OnInit,ViewChild, ElementRef, AfterViewInit, HostListener, Input } from "@angular/core";
 import { Router } from "@angular/router";
-import { FlashMessagesService } from "angular2-flash-messages";
 import { FilesService } from "../../services/files.service";
 import { Track } from "../../models/tracks";
 import { Observable } from "rxjs";
@@ -35,7 +34,6 @@ export class NavborComponent implements OnInit, AfterViewInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private flashMessage: FlashMessagesService,
     private filesServie: FilesService,
     private _location: Location,
     private eRef: ElementRef,
@@ -46,10 +44,7 @@ export class NavborComponent implements OnInit, AfterViewInit {
       status => { 
         this.isLoggedIn = status;
       }); 
-
-      
   }
-
 
   ngOnInit() {
     this.authService.isLoggedIn();

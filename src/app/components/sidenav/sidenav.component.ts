@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit  } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
-import { Router } from "../../../../node_modules/@angular/router";
+import { Router,ActivatedRoute } from "../../../../node_modules/@angular/router";
 import { CommonServiceService } from "../../services/common-service.service";
 
 @Component({
@@ -16,7 +16,8 @@ export class SidenavComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private commenServie: CommonServiceService
+    private commenServie: CommonServiceService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.auth = authService;
     this.auth.loggedIn$.subscribe(status => {
@@ -75,8 +76,16 @@ export class SidenavComponent implements OnInit {
 
   onYouTubePlaylistLoad() {
     this.toggleSideNav();
-    this.router.navigate(["/youtube/"+ this.playlist_id])
-    this.playlist_id = "";
+    console.log(this.activatedRoute.snapshot.firstChild.url[0].path);
+
+    //already on url
+    if(this.activatedRoute.snapshot.firstChild.url[0].path == "youtube"){
+      this.commenServie.notifygetYTTracksSubject(this.playlist_id);
+    }else {
+      this.router.navigate(["/youtube"], {queryParams: {playlistID: this.playlist_id}})
+    }
+    
+    // this.playlist_id = "";
   }
 
   toggleSideNav() {

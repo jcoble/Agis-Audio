@@ -2,16 +2,11 @@ import { PublicVariablesService } from './public-variables.service';
 import { MatSnackBar } from '@angular/material';
 import { DialogData } from './../components/login/login.component';
 import { TokenData } from './../models/tokenData';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { User } from "../models/user";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import * as sha512 from "js-sha512";
-import { LoginData } from "../models/loginData";
-import { RegisterData } from "../models/registerData";
-import { RequestOptions } from "@angular/http";
 import { catchError, retry, map } from "rxjs/operators";
 import { RegisterReturnData } from "../models/registerReturnData";
 import * as moment from "moment";
@@ -45,7 +40,6 @@ export class AuthService {
   private handleError: HandleError;
 
   constructor(
-    private afAuth: AngularFireAuth,
     private router: Router,
     private http: HttpClient,
     private toastr: ToastrService,
@@ -63,13 +57,13 @@ export class AuthService {
       .set("password", password)
       .set("client_id", "ngAuthApp");
 
-    return this.http.post<TokenData>(this.apiUrl + "Token", params).map(res => {
+    return this.http.post<TokenData>(this.apiUrl + "Token", params).pipe(map(res => {
       this.setSession(res);
       this.snackbar.open('You are now logged in!', 'Ok',{
         duration: 3000
       })
       this.loggedIn.next(true);
-    }).pipe(
+    })).pipe(
       retry(3),
       catchError(this.handleError('login', null))
     );

@@ -12,8 +12,8 @@
             </div>
             <div *ngIf="isUploading" class="progress-wrapper">
                 <!-- <round-progress background="white" color="#ff5722" rounded="true" [radius]="28" [stroke]="7" max="100" [current]="(uploadProgress | async)"></round-progress> -->
-                <progress class="hidden-progress" max="100" [value]="(uploadProgress | async)"></progress>
-                <mat-progress-bar [color]="primary" [mode]="isDeterminate" [value]="(uploadProgress | async)" class="mprogress">
+                <progress class="hidden-progress" [max]="100" [value]="uploadProgress"></progress>
+                <mat-progress-bar [color]="primary"  [mode]="isDeterminate" [value]="uploadProgress" class="mprogress">
                 </mat-progress-bar>
             </div>
 

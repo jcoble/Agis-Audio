@@ -1,22 +1,17 @@
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
-import { throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import 'rxjs/add/observable/timer';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AngularFireStorage } from "angularfire2/storage";
 import { Track } from "./../models/tracks";
-import { Injectable, Component } from "@angular/core";
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from "angularfire2/firestore";
+import { Injectable } from "@angular/core";
 import { Folder } from "../models/folder";
-import { User } from "../models/user";
 import { PublicVariablesService } from './public-variables.service';
 import { CommonServiceService } from './common-service.service';
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
+import polling from 'rx-polling';
+import { PollProcess } from '../models/PollProcess';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'content-type': 'application/json '})
@@ -24,13 +19,8 @@ const httpOptions = {
 
 @Injectable()
 export class FilesService {
-  trackCollection: AngularFirestoreCollection<Track>;
-  trackDoc: AngularFirestoreDocument<Track>;
   tracks: Observable<Track[]>;
   track: Observable<Track>;
-
-  folderCollection: AngularFirestoreCollection<Folder>;
-  folderDoc: AngularFirestoreDocument<Folder>;
   folders: Observable<Folder[]>;
   folder: Observable<Folder>;
 
@@ -40,9 +30,11 @@ export class FilesService {
   //apiUrl: string = 'http://localhost:63298/api/';
   apiUrl: string = this.global.getApiUrl();
   private handleError: HandleError;
-
+  
+  
+  // private _hubConnection: HubConnection
   constructor(
-    private http: HttpClient,private afStorage: AngularFireStorage, 
+    private http: HttpClient,
     private global: PublicVariablesService,
     private commonService: CommonServiceService,
     public snackbar: MatSnackBar,  
@@ -160,6 +152,7 @@ export class FilesService {
   }
 
   newTrack(track: Track): Observable<Track> {
+
     const url = this.apiUrl + 'Track';
     return this.http.post<Track>(url, track, httpOptions).catch(err => {
       this.commonService.notifyYTUploadComplete();
@@ -172,10 +165,13 @@ export class FilesService {
 
   newPlaylist(track: Track): Observable<Track> {
     const url = this.apiUrl + 'Track/YTPlaylist';
-    return this.http.post<Track>(url, track, httpOptions).pipe(
-      retry(3),
-      catchError(this.handleError('newPlaylist', track))
-    );
+    return this.http.post<Track>(url, track, httpOptions);
+  }
+
+  pollNewPlaylist(): Observable<PollProcess> {
+    let url = this.apiUrl + 'Track/YTPoll';
+    const request$ = this.http.get(url); 
+    return polling(request$, { interval: 5000 })
   }
 
   putTrackOrderDown(track: Track): Observable<any> {
@@ -202,20 +198,4 @@ export class FilesService {
     );
   }
 
-
-  // handleError(error: HttpErrorResponse) {
-  //   if (error.error instanceof ErrorEvent) {
-  //     // A client-side or network error occurred. Handle it accordingly.
-  //     console.error('An error occurred:', error.error.message);
-  //   } else {
-  //     // The backend returned an unsuccessful response code.
-  //     // The response body may contain clues as to what went wrong,
-  //     console.error(
-  //       `Backend returned code ${error.status}, ` +
-  //       `body was: ${error.error}`);
-  //   }
-    
-  //   return throwError(
-  //     'Something bad happened; please try again later.');
-  // };
 }

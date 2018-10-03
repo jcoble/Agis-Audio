@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'myplaylists/folders', component: FoldersComponent, canActivate:[AuthGuard], runGuardsAndResolvers: 'always' },
   { path: 'resetpassword', component: ResetpasswordComponent } ,
   { path: 'share', component: ShareComponent } ,
-  { path: 'youtube/:id', component:  YoutubeTracksComponent, canActivate:[AuthGuard]},
+  { path: 'youtube', component:  YoutubeTracksComponent, canActivate:[AuthGuard]},
 
 
 ];

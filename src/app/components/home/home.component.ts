@@ -32,16 +32,8 @@ export class HomeComponent implements OnInit {
     private render: Renderer2
   ) {}
 
-  onElementScroll($event) {
-    console.log($event);
-  }
-  ngOnInit() {
-    console.log("before logged in");
-    // this.render.listen('window', 'scroll', ()=> {
-    //   console.log('scroll')
-    //   console.log(window.scrollY);
-    // });
 
+  ngOnInit() {
     this.getAttention("bounce", 75, 30, 1);
     var jumboHeight = $(".jumbotron").outerHeight();
     function parallax() {
@@ -56,8 +48,6 @@ export class HomeComponent implements OnInit {
     $("#scrollMe").scroll(function(e) {
       const elementOffsetTop = $("#about").outerHeight();
       const pageYOffset = $("#scrollMe").scrollTop();
-      console.log("elementOffsetTop " + elementOffsetTop);
-      console.log("pageYOffset " + pageYOffset);
 
       if (pageYOffset + 50 >= elementOffsetTop) {
         $("nav").addClass("background");
@@ -74,21 +64,6 @@ export class HomeComponent implements OnInit {
 
 
     });
-  }
-
-  @HostListener("window:scroll", [])
-  onScrollEvent($event) {
-    console.log("scrolling");
-  }
-
-  @HostListener("scroll", ["$event"])
-  onScroll(event) {
-    console.log("scrolling");
-  }
-
-  @HostListener("scroll")
-  public asd(): void {
-    console.log("scrolling");
   }
 
   getAttention(elementClass, initialDistance, times, damping) {

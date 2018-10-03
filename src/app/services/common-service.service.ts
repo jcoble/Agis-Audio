@@ -1,3 +1,4 @@
+import { PollProcess } from './../models/PollProcess';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -24,8 +25,14 @@ export class CommonServiceService {
   private trackLikedSubject = new Subject<any>();
   private trackAddedToPlaylistSubject = new Subject<any>();
   private nextSongLoadedSubject = new Subject<any>();
+  private getYTTracksSubject = new Subject<any>();
+  private uploadYTPlaylistSubject = new Subject<any>();
 
   constructor() { }
+
+  setCurrentTrack(track: Track) {
+    CommonServiceService.currentTrack = track;
+  }
 
   setCurrentTrackList(trackList: Track[]) {
     CommonServiceService.currentTrackList = trackList;
@@ -79,6 +86,14 @@ export class CommonServiceService {
   notifyNextSongLoaded(track: Track) {
     this.nextSongLoadedSubject.next(track);
   }
+ 
+  notifygetYTTracksSubject(playlistURL: string) {
+    this.getYTTracksSubject.next(playlistURL);
+  }
+
+  notifyuploadYTPlaylistSubject(pollProcess: PollProcess,folder: Folder) {
+    this.uploadYTPlaylistSubject.next({pollProcess,folder});
+  }
 
   toggleSideNav() {
     this.toggleSideNavSubject.next();
@@ -130,6 +145,14 @@ export class CommonServiceService {
 
   get nextSongLoadedEvents$ () {
     return this.nextSongLoadedSubject.asObservable();
+  }
+
+  get getYTTracksEvents$ () {
+    return this.getYTTracksSubject.asObservable();
+  }
+
+  get UploadYTPlaylistEvents$ () {
+    return this.uploadYTPlaylistSubject.asObservable();
   }
 
   // This goes form the footer to the leads component when the audio is played or paused

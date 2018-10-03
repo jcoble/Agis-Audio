@@ -28,12 +28,23 @@ export class YoutubeTracksComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    let id = this.route.snapshot.params["id"];
+    let id = this.route.snapshot.queryParamMap.get('playlistID');
     this.isLoading = true;
     let track: Track = {
       youtube_link: id
     }
 
+    this.getTracks(track);
+
+    this.commonService.getYTTracksEvents$.subscribe(playlistURL => {
+      this.tracks = [];
+      this.isLoading = true;
+      track.youtube_link = playlistURL;
+      this.getTracks(track);
+    })
+  }
+
+  getTracks(track) {
     this.filesService.getYouTubeTracks(track).subscribe(tracks => {
       this.isLoading = false;
       this.tracks = tracks;

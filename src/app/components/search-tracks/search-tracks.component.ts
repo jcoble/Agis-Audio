@@ -113,8 +113,8 @@ export class SearchTracksComponent implements OnInit {
             if (track.url != CommonServiceService.currentTrack.url) {
               track.isPlaying = false;
             } else {
-              track.isPlaying = CommonServiceService.currentTrack.isPlaying;
               this.commonService.changeTrack(track);
+              track.isPlaying = true;
             }
           } else {
             // if not then make all tracks set to not playing

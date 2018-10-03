@@ -1,0 +1,7 @@
+TODO:
+
+1. Add youtube playlist complete and error resolve -- DONE
+2. See if i can extract the playlist id from the url. --DONE
+3. Tracks playing automatically when going back to playlist. --DONE
+4. Deleting Playlist and subplaylists not working inside playlists not working; --DONE
+5. Refactor Code and Add comments

@@ -28,6 +28,7 @@ import {
 import { ToastrService } from "../../../../node_modules/ngx-toastr";
 import * as moment from "moment";
 import { DialogComponent } from "./../dialog/dialog.component";
+import { PollProcess } from "../../models/PollProcess";
 
 export interface DialogFolderData {
   folder_name: string;
@@ -130,7 +131,7 @@ export class FoldersComponent implements OnInit {
       if (element !== "" && this._ruta === "") this._ruta = "/" + element;
     });
   }
-  
+
   initialiseScreen() {
     this.isLoading = true;
     this.isUploading = false;
@@ -162,7 +163,7 @@ export class FoldersComponent implements OnInit {
       this.folders.forEach(folder => {
         if (data.id == folder.id) {
           folder.number_tracks += 1;
-          this.isUploading = false;
+          if (folder.folder_type != "YTUPLOAD") this.isUploading = false;
         }
       });
     });
@@ -180,17 +181,14 @@ export class FoldersComponent implements OnInit {
       user_id: user_id,
       folder_path: folder_path
     };
-console.log('getting folders');
 
     this.filesService.getFolders(folder).subscribe(folders => {
       this.folders = folders;
       this.isLoading = false;
-      
     }),
-    error => {
-      this.isLoading = false;
-      console.log('asdfkjsd');
-    };
+      error => {
+        this.isLoading = false;
+      };
   }
 
   getNewFolders(folder: Folder) {
@@ -294,10 +292,8 @@ console.log('getting folders');
             this.snackbar.open("This Link can't be downloaded!", "Ok", {
               duration: 3000
             });
-          }
+          };
         });
-      } else {
-        console.log("not");
       }
     });
   }
@@ -305,12 +301,11 @@ console.log('getting folders');
   addYouTubePlaylist(folder: Folder) {
     const dialogRef = this.dialog.open(YoutubeDialogComponent, {
       width: "250px",
-      data: { track_name: "playlist id", link: "", genre: "" }
+      data: { track_name: "Link", link: "", genre: "" }
     });
 
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
-        this.commonService.notifyStartYTUpload();
         let trackToUpload: Track = {
           track_name: data.track_name,
           createdDate: new Date(),
@@ -319,35 +314,47 @@ console.log('getting folders');
           youtube_link: data.link,
           genre: data.genre
         };
-        this.snackbar.open("This WILL take a long time to complete!", "Ok", {
+        this.snackbar.open("This will probably take a long time to complete!", "Ok", {
           duration: 3000
         });
+        this.isUploading = true;
         this.filesService.newPlaylist(trackToUpload).subscribe(data => {
-          if(data == true){
-            this.commonService.notifyUploadComplete(folder);
-            this.commonService.notifyYTUploadComplete();
-            this.snackbar.open("Playlist Added!", "Ok", {
-              duration: 3000
-            });
-          }
-          error => {
-            this.commonService.notifyYTUploadComplete();
-            this.snackbar.open("This Link can't be downloaded!", "Ok", {
-              duration: 3000
-            });
-          }
-        });
-      } else {
-        console.log("not");
+            this.startPolling(folder);
+            
+        }),
+        error => {
+          this.snackbar.open("This Link can't be downloaded!", "Ok", {
+            duration: 3000
+          });
+        };;
       }
     });
   }
 
-  
+  startPolling(folder: Folder) {
+    let newPoll: PollProcess = {
+      status: "STARTED",
+      total_tracks: 1,
+      tracks_complete: 0
+    };
+    this.commonService.notifyuploadYTPlaylistSubject(newPoll, folder);
+    let subscription = this.filesService
+      .pollNewPlaylist()
+      .subscribe((poll: PollProcess) => {        
+        folder.folder_type = "YTUPLOAD";
+        this.commonService.notifyuploadYTPlaylistSubject(poll, folder);
+        if (poll.status == "DONE") {
+          this.snackbar.open("Playlist Added!", "Ok", {
+            duration: 3000
+          });
+          subscription.unsubscribe();
+        }
+      });
+  }
 
   deleteFolder(folderToBeDeleted: Folder) {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { message: "This will delete all subfolders and tracks!" }
+      data: { message: "This will delete all Playlist and Tracks!" }
     });
 
     dialogRef.afterClosed().subscribe(data => {
@@ -357,7 +364,7 @@ console.log('getting folders');
             this.folders = this.folders.filter(
               folder => folder.id !== folderToBeDeleted.id
             );
-            this.snackbar.open("Folder Deleted", "Ok", {
+            this.snackbar.open("Playlist Deleted", "Ok", {
               duration: 3000
             });
           }

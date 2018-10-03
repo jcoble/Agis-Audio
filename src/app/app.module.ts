@@ -10,10 +10,6 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule} from 'ngx-toastr';
@@ -26,7 +22,6 @@ import { LoginComponent, DialogResetPassDialog } from './components/login/login.
 import { RegisterComponent } from './components/register/register.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { HttpModule } from '@angular/http';
-import { AngularFireStorageModule } from 'angularfire2/storage';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -47,7 +42,6 @@ import { ResetpasswordComponent } from './components/resetpassword/resetpassword
 import { MatAutocompleteModule } from '@angular/material';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { LandingComponent } from './components/landing/landing.component';
-// import { ParallaxModule, ParallaxConfig } from 'ngx-parallax';
 import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { YoutubeDialogComponent } from './components/youtube-dialog/youtube-dialog.component';
 import { ShareComponent } from './components/share/share.component';
@@ -59,9 +53,9 @@ import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { HomeComponent } from './components/home/home.component';
 import { ParallaxScrollModule } from 'ng2-parallaxscroll';
 import { ScrollToModule } from 'ng2-scroll-to-el';
-import { RedblackDirective } from './directives/redblack.directive';
 import { BackgroundfadeinDirective } from './directives/backgroundfadein.directive';
 import { HttpErrorHandler } from './services/http-error-handler.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,18 +85,11 @@ import { HttpErrorHandler } from './services/http-error-handler.service';
     TrendingComponent,
     YoutubeTracksComponent,
     HomeComponent,
-    RedblackDirective,
     BackgroundfadeinDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase, 'clientpanel'),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    FlashMessagesModule.forRoot(),
-    AngularFireDatabaseModule,
-    AngularFireStorageModule,
     MDBBootstrapModule.forRoot(),
     MatDialogModule,
     FormsModule,
@@ -142,6 +129,8 @@ import { HttpErrorHandler } from './services/http-error-handler.service';
     LazyLoadImagesModule,
     ParallaxScrollModule,
     ScrollToModule.forRoot()
+    // ,
+    // SignalRModule.forRoot(createConfig)
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [FilesService, AuthService, CommonServiceService, UserService, HttpErrorHandler,

@@ -81,6 +81,8 @@ export class TracksComponent implements OnInit {
             } else {
               track.isPlaying = CommonServiceService.currentTrack.isPlaying;
               this.commonService.changeTrack(track);
+              // this.commonService.setCurrentTrack(track);
+              track.isPlaying = true;
             }
           } else {
             // if not then make all tracks set to not playing
@@ -175,16 +177,12 @@ export class TracksComponent implements OnInit {
   addToPlaylist(track: Track) {
     let userID = localStorage.getItem("Id");
     this.filesService.getAllUserFolders(userID).subscribe(folders => {
-      console.log(folders);
-
       const dialogRef = this.dialog.open(PlaylistDialogComponent, {
         data: folders
       });
 
       dialogRef.afterClosed().subscribe(data => {
         if (data) {
-          console.log(data);
-
           this.filesService.addToPlaylist(track, data).subscribe(() => {
             this.snackbar.open("Tracks Added to Playlist(s)", "Ok", {
               duration: 3000
@@ -338,9 +336,7 @@ export class TracksComponent implements OnInit {
             duration: 3000
           });
         })
-      } else {
-        console.log("not");
-      }
+      } 
     });
   }
 }

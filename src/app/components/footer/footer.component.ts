@@ -1,3 +1,4 @@
+import { PollProcess } from "./../../models/PollProcess";
 
 import { Injectable, OnDestroy, Output, EventEmitter } from "@angular/core";
 import { FilesService } from "./../../services/files.service";
@@ -6,7 +7,6 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Track } from "../../models/tracks";
 import { Observable } from "rxjs";
 import { Folder } from "../../models/folder";
-import { AngularFireStorage } from "../../../../node_modules/angularfire2/storage";
 import { finalize, map } from "rxjs/operators";
 import { MatSnackBar } from "../../../../node_modules/@angular/material";
 import "rxjs/add/observable/interval";
@@ -53,7 +53,8 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   ref: any;
   task: any;
-  uploadProgress: Observable<number>;
+  uploadProgress: number;
+  maxValue: number;
   isUploading: boolean;
   downloadURL: Observable<string>;
   uploadURL: any;
@@ -65,7 +66,7 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   newVariable: any;
 
-
+  trackPlayingID: number;
 
   isDeterminate: string = "determinate";
 
@@ -75,7 +76,6 @@ export class FooterComponent implements OnInit, OnDestroy {
   totalNumberUploads: number;
   constructor(
     private commonService: CommonServiceService,
-    private afStorage: AngularFireStorage,
     private filesService: FilesService,
     public snackbar: MatSnackBar
   ) {
@@ -85,19 +85,12 @@ export class FooterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.commonService.events$.forEach(track => {
       this.track = track;
-      // if (this.track.youtube_link) {
-      //   this.id = this.track.youtube_link;
-      //   this.savePlayer(this.player);
-      // }
-
       this.playPause();
     });
 
-    
-
-    this.commonService.uploadEvents$.forEach(data => {
-      this.uploadFiles(data.files, data.folder);
-    });
+    // this.commonService.uploadEvents$.forEach(data => {
+    //   this.uploadFiles(data.files, data.folder);
+    // });
 
     this.commonService.startYTUploadEvents$.forEach(() => {
       this.isUploading = true;
@@ -112,7 +105,6 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.audio.ontimeupdate = () => {
       this.secondsMinutes = this.secondsToHms(this.audio.currentTime);
       this.audioCurrentTime = this.audio.currentTime;
-      
     };
 
     this.commonService.nextTrackEvents$.forEach(() => {
@@ -123,37 +115,42 @@ export class FooterComponent implements OnInit, OnDestroy {
       this.skipPreviousTrack();
     });
 
-    try
-    {
+    this.commonService.UploadYTPlaylistEvents$.forEach(data => {
+      this.uploadProgressYTPlaylist(data.pollProcess, data.folder);
+    });
+
+    try {
       this.newVariable = window.navigator;
 
-      this.newVariable.mediaSession.setActionHandler('previoustrack', () => {
+      this.newVariable.mediaSession.setActionHandler("previoustrack", () => {
         this.skipPreviousTrack();
-      })
-  
-      this.newVariable.mediaSession.setActionHandler('nexttrack', () => {
-        this.skipNextTrack();
-      })
-  
-      this.newVariable.mediaSession.setActionHandler('play', () => {
-        this.triggerPlayPause();
-      })
-  
-      this.newVariable.mediaSession.setActionHandler('pause', () => {
-        this.triggerPlayPause();
-      })
-    let skipTime = 10;/* Time to skip in seconds */
-    this.newVariable.mediaSession.setActionHandler('seekbackward', () => {
-      this.audio.currentTime = Math.max(this.audio.currentTime - skipTime, 0);
-      this.audioCurrentTime = this.audio.currentTime;
-    })
+      });
 
-    this.newVariable.mediaSession.setActionHandler('seekforward', () => {
-      this.audio.currentTime = Math.min(this.audio.currentTime + skipTime, this.audio.duration);
-      this.audioCurrentTime = this.audio.currentTime;
-    })
-    }catch{
-    }
+      this.newVariable.mediaSession.setActionHandler("nexttrack", () => {
+        this.skipNextTrack();
+      });
+
+      this.newVariable.mediaSession.setActionHandler("play", () => {
+        this.triggerPlayPause();
+      });
+
+      this.newVariable.mediaSession.setActionHandler("pause", () => {
+        this.triggerPlayPause();
+      });
+      let skipTime = 10; /* Time to skip in seconds */
+      this.newVariable.mediaSession.setActionHandler("seekbackward", () => {
+        this.audio.currentTime = Math.max(this.audio.currentTime - skipTime, 0);
+        this.audioCurrentTime = this.audio.currentTime;
+      });
+
+      this.newVariable.mediaSession.setActionHandler("seekforward", () => {
+        this.audio.currentTime = Math.min(
+          this.audio.currentTime + skipTime,
+          this.audio.duration
+        );
+        this.audioCurrentTime = this.audio.currentTime;
+      });
+    } catch {}
   }
 
   skipPreviousTrack(): void {
@@ -183,16 +180,44 @@ export class FooterComponent implements OnInit, OnDestroy {
       this.track = currentTrackList[currentTrackIndex + 1];
       this.track.isPlaying = true;
       this.commonService.changeTrack(this.track);
-      
+
       // this.LoadAudio();
       // this.PlayAudio();
     }
   }
 
-  uploadFiles(files: FileList, folder: Folder) {
-    this.totalNumberUploads = files.length;
-    this.upload(files, folder);
+  uploadProgressYTPlaylist(pollProcess: PollProcess, folder: Folder) {
+    if (pollProcess.status == "STARTED" || pollProcess.status == "RUNNING") {
+      this.isUploading = true;
+      this.isDeterminate = "determinate";
+      this.maxValue = pollProcess.total_tracks;
+      if(pollProcess.tracks_complete > 0){
+        if(this.uploadProgress != Math.floor(
+          (pollProcess.tracks_complete / pollProcess.total_tracks) * 100
+        )){
+          this.commonService.notifyUploadComplete(folder);
+        }
+        this.uploadProgress = Math.floor(
+          (pollProcess.tracks_complete / pollProcess.total_tracks) * 100
+        );
+      }else {
+        this.uploadProgress = 0;
+      }
+      
+    } else if (pollProcess.status == "DONE") {
+      this.isUploading = false;
+      this.maxValue = 0;
+      this.isDeterminate = "indeterminate";
+      this.uploadProgress = 0;
+      folder.folder_type = "";
+      this.commonService.notifyUploadComplete(folder);
+    } 
   }
+
+  // uploadFiles(files: FileList, folder: Folder) {
+  //   this.totalNumberUploads = files.length;
+  //   this.upload(files, folder);
+  // }
 
   playPause() {
     this.trackLoading = false;
@@ -203,15 +228,12 @@ export class FooterComponent implements OnInit, OnDestroy {
     if (!this.track.isPlaying) {
       this.audio.pause();
     } else {
-
-      if (this.audio.src != encodeURI(this.track.url)) {
+      if (this.trackPlayingID != this.track.id) {
+        this.trackPlayingID = this.track.id;
         this.LoadAudio();
       }
-
       this.PlayAudio();
     }
-
-    
   }
 
   private LoadAudio() {
@@ -226,10 +248,7 @@ export class FooterComponent implements OnInit, OnDestroy {
       this.skipNextTrack();
       this.commonService.notifyNextSongLoaded(this.track);
     };
-
   }
-
-  
 
   private PlayAudio() {
     this.audio.play().catch(error => {
@@ -255,7 +274,6 @@ export class FooterComponent implements OnInit, OnDestroy {
     // })
     // this.audio.title = this.track.track_name;
   }
-
 
   triggerPlayPause() {
     // if (this.track.url != "") {
@@ -313,46 +331,46 @@ export class FooterComponent implements OnInit, OnDestroy {
     // }
   }
 
-  upload(files: FileList, folder: Folder) {
-    Array.from(files).forEach((file, index) => {
-      let totalBytesAll = [];
-      let trackToUpload: Track = {
-        track_name: file.name,
-        createdDate: new Date(),
-        user_id: folder.user_id,
-        folder_id: folder.id
-      };
-      this.isUploading = true;
-      this.isDeterminate = "determinate";
+  // upload(files: FileList, folder: Folder) {
+  //   Array.from(files).forEach((file, index) => {
+  //     let totalBytesAll = [];
+  //     let trackToUpload: Track = {
+  //       track_name: file.name,
+  //       createdDate: new Date(),
+  //       user_id: folder.user_id,
+  //       folder_id: folder.id
+  //     };
+  //     this.isUploading = true;
+  //     this.isDeterminate = "determinate";
 
-      const fileLocation =
-        "leads/" +
-        trackToUpload.track_name.replace(".mp3", "") +
-        folder.user_id +
-        ".mp3";
+  //     const fileLocation =
+  //       "leads/" +
+  //       trackToUpload.track_name.replace(".mp3", "") +
+  //       folder.user_id +
+  //       ".mp3";
 
-      this.ref = this.afStorage.ref(fileLocation);
-      this.task = this.ref.put(file);
+  //     this.ref = this.afStorage.ref(fileLocation);
+  //     this.task = this.ref.put(file);
 
-      this.uploadProgress = this.task.percentageChanges();
+  //     this.uploadProgress = this.task.percentageChanges();
 
-      this.task
-        .then(snapshot => {
-          return snapshot.ref.getDownloadURL();
-        })
-        .then(snapshot => {
-          trackToUpload.url = snapshot.downloadURL;
-          this.uploadFileMeta(trackToUpload, folder, index);
-        })
+  //     this.task
+  //       .then(snapshot => {
+  //         return snapshot.ref.getDownloadURL();
+  //       })
+  //       .then(snapshot => {
+  //         trackToUpload.url = snapshot.downloadURL;
+  //         this.uploadFileMeta(trackToUpload, folder, index);
+  //       })
 
-        .catch(error => {
-          // Use to signal error if something goes wrong.
-          this.snackbar.open("Something went wrong with the upload", "Ok", {
-            duration: 4000
-          });
-        });
-    });
-  }
+  //       .catch(error => {
+  //         // Use to signal error if something goes wrong.
+  //         this.snackbar.open("Something went wrong with the upload", "Ok", {
+  //           duration: 4000
+  //         });
+  //       });
+  //   });
+  // }
 
   uploadFileMeta(trackToUpload: Track, folder: Folder, index: number) {
     this.filesService.newTrack(trackToUpload).subscribe(

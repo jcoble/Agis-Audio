@@ -7,9 +7,7 @@ import * as $ from "jquery";
 export class BackgroundfadeinDirective implements OnInit {
 
 
-  constructor(private element: ElementRef) {
-    console.log(element);
-    
+  constructor(private element: ElementRef) {    
    }
    @Input() myClassToAdd: string;
    @Input('addAttributeOn') elementIdToReach: string;
@@ -21,9 +19,7 @@ export class BackgroundfadeinDirective implements OnInit {
   
 
   @HostListener('window:scroll', ['$event']) onScrollEvent($event){
-    const elementOffsetTop = document.getElementById('toReach').offsetTop;
-    console.log(elementOffsetTop);
-    
+    const elementOffsetTop = document.getElementById('toReach').offsetTop;    
     if (elementOffsetTop <= window.pageYOffset) {
       this.element.nativeElement.classList.add(this.myClassToAdd);
     } else {

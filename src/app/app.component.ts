@@ -55,9 +55,7 @@ export class AppComponent {
       });
     
       this.authService.isLoggedIn();
-    if (localStorage.getItem("tokenData")) {
-      console.log('logged in');
-      
+    if (localStorage.getItem("tokenData")) {      
       this.router.navigate(["/playlists"]);
       return;
     }
@@ -100,12 +98,4 @@ export class AppComponent {
     this.sideNavOpen = false;
   }
 
-  onScroll($event) {
-    console.log('scrolling');
-    
-  }
-
-  scrolled(){
-    console.log('scrolling');
-  }
 }
