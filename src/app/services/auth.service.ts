@@ -64,8 +64,7 @@ export class AuthService {
       })
       this.loggedIn.next(true);
     })).pipe(
-      retry(3),
-      catchError(this.handleError('login', null))
+      retry(3)
     );
   }
 

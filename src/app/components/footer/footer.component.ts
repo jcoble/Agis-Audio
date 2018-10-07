@@ -222,7 +222,7 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.htmlAudioPlayPause();
   }
 
-  htmlAudioPlayPause() {
+  htmlAudioPlayPause() { 
     if (!this.track.isPlaying) {
       this.audio.pause();
     } else {

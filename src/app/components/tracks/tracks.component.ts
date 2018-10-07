@@ -82,7 +82,7 @@ export class TracksComponent implements OnInit {
               track.isPlaying = CommonServiceService.currentTrack.isPlaying;
               this.commonService.changeTrack(track);
               // this.commonService.setCurrentTrack(track);
-              track.isPlaying = true;
+              // track.isPlaying = true;
             }
           } else {
             // if not then make all tracks set to not playing
