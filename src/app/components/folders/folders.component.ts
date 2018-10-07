@@ -162,8 +162,16 @@ export class FoldersComponent implements OnInit {
     this.commonService.uploadCompleteEvents$.forEach(data => {
       this.folders.forEach(folder => {
         if (data.id == folder.id) {
-          folder.number_tracks += 1;
-          if (folder.folder_type != "YTUPLOAD") this.isUploading = false;
+          if (folder.folder_type == "YTUPLOAD") 
+          {
+            folder.number_tracks = data.number_tracks;
+          }else if (folder.folder_type == "DONE"){
+            folder.number_tracks = data.number_tracks;
+            this.isUploading = false;
+          }else {
+            folder.number_tracks += 1;
+            this.isUploading = false;
+          }
         }
       });
     });
@@ -318,8 +326,8 @@ export class FoldersComponent implements OnInit {
           duration: 3000
         });
         this.isUploading = true;
-        this.filesService.newPlaylist(trackToUpload).subscribe(data => {
-            this.startPolling(folder);
+        this.filesService.newPlaylist(trackToUpload).subscribe((data: PollProcess) => {
+            this.startPolling(folder, data.id);
             
         }),
         error => {
@@ -331,18 +339,20 @@ export class FoldersComponent implements OnInit {
     });
   }
 
-  startPolling(folder: Folder) {
+  startPolling(folder: Folder, id: number) {
     let newPoll: PollProcess = {
       status: "STARTED",
       total_tracks: 1,
       tracks_complete: 0
     };
-    this.commonService.notifyuploadYTPlaylistSubject(newPoll, folder);
+
+    let numberTracksBefore = folder.number_tracks;
+    this.commonService.notifyuploadYTPlaylistSubject(newPoll, folder,numberTracksBefore);
     let subscription = this.filesService
-      .pollNewPlaylist()
+      .pollNewPlaylist(id)
       .subscribe((poll: PollProcess) => {        
         folder.folder_type = "YTUPLOAD";
-        this.commonService.notifyuploadYTPlaylistSubject(poll, folder);
+        this.commonService.notifyuploadYTPlaylistSubject(poll, folder, numberTracksBefore);
         if (poll.status == "DONE") {
           this.snackbar.open("Playlist Added!", "Ok", {
             duration: 3000

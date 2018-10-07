@@ -4,7 +4,6 @@ import { passwordReset } from './../../models/passwordReset';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { Router, ActivatedRoute } from '../../../../node_modules/@angular/router';
-import { FlashMessagesService } from '../../../../node_modules/angular2-flash-messages';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { ToastrService } from '../../../../node_modules/ngx-toastr';
@@ -31,7 +30,6 @@ export class ResetpasswordComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private flashMessage: FlashMessagesService,
     private router: Router,
     private route: ActivatedRoute,
     public snackbar: MatSnackBar

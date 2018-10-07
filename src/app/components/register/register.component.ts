@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
-import { FlashMessagesService } from "angular2-flash-messages";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { User } from "../../models/user";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-register",
@@ -30,10 +30,10 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private flashMessage: FlashMessagesService
+    public snackbar: MatSnackBar
   ) {}
 
-  ngOnInit() {
+  ngOnInit() { 
     this.errors = [];
     this.user = {
       first_name: '',
@@ -91,12 +91,16 @@ export class RegisterComponent implements OnInit {
         error => {
           this.isLoggingIn = false;
           if (error.status == 400) {
+            let errorString = "";
             for (var key in error.error.modelState) {
               for (var i = 0; i < error.error.modelState[key].length; i++) {
                 this.errors.push(error.error.modelState[key][i]);
+                errorString += error.error.modelState[key][i];
               }
             }
-
+            this.snackbar.open(errorString, "Ok", {
+              duration: 6000
+            });
           } else {
             this.errors.push("Something went wrong");
           }

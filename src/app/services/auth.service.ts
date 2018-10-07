@@ -122,10 +122,11 @@ export class AuthService {
     return this.http.post<RegisterReturnData>(
       this.apiUrl + "api/Account/Register",
       params
-    ).pipe(
-      retry(3),
-      catchError(this.handleError('registerWithEmailPass', null))
-    );
+    )
+    // .pipe(
+    //   retry(3),
+    //   catchError(this.handleError('registerWithEmailPass', null))
+    // );
   }
 
   // Set the logged in user's token data to local storage
@@ -157,6 +158,7 @@ export class AuthService {
     localStorage.removeItem("expires_at");
     localStorage.removeItem("tokenData");
     this.loggedIn.next(false);
+    this.router.navigate(['/login']);
   }
 
   public isLoggedIn() {

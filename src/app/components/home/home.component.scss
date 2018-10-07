@@ -26,13 +26,28 @@
     background:transparent;
     position:relative; 
     border-radius: 50px;
-    margin-top: 7em;
+    margin-top: 10vh;
 }
 
 .bounce2 {
     background:transparent;
     position:relative;
     border-radius: 50px;
+    margin-bottom: 10vh;
+}
+
+.bounce3 {
+    background:transparent;
+    position:relative;
+    border-radius: 50px;
+    margin-top: 10vh;
+}
+
+.bounce4 {
+    background:transparent;
+    position:relative;
+    border-radius: 50px;
+    margin-bottom: 10vh;
 }
 
 input.down-arrow {
@@ -94,6 +109,26 @@ input.down-arrow {
     // background-image: url('/assets/waveform.png');
     // background-repeat: no-repeat;
     // background-size: 100% 100%;
+}
+
+.agis-content-wrapper {
+    background-image: url('/assets/spartanWarrior.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%; /*same height as jumbotron */
+    z-index: -1;
+    background-position: 50% 50%;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.agis-content>p,.agis-content>h3 {
+    color: black;
+    font-weight: bold;
 }
 
 .background {

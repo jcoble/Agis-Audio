@@ -91,8 +91,8 @@ export class CommonServiceService {
     this.getYTTracksSubject.next(playlistURL);
   }
 
-  notifyuploadYTPlaylistSubject(pollProcess: PollProcess,folder: Folder) {
-    this.uploadYTPlaylistSubject.next({pollProcess,folder});
+  notifyuploadYTPlaylistSubject(pollProcess: PollProcess,folder: Folder, numberTracksBefore: number) {
+    this.uploadYTPlaylistSubject.next({pollProcess,folder, numberTracksBefore});
   }
 
   toggleSideNav() {

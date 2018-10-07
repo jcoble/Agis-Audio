@@ -163,13 +163,15 @@ export class FilesService {
     });
   }
 
-  newPlaylist(track: Track): Observable<Track> {
+  newPlaylist(track: Track): Observable<PollProcess> {
     const url = this.apiUrl + 'Track/YTPlaylist';
-    return this.http.post<Track>(url, track, httpOptions);
+    return this.http.post<PollProcess>(url, track, httpOptions).pipe(
+      catchError(this.handleError('newFolder', track))
+    );;
   }
 
-  pollNewPlaylist(): Observable<PollProcess> {
-    let url = this.apiUrl + 'Track/YTPoll';
+  pollNewPlaylist(ID: number): Observable<PollProcess> {
+    let url = this.apiUrl + 'Track/YTPoll/'+ID;
     const request$ = this.http.get(url); 
     return polling(request$, { interval: 5000 })
   }

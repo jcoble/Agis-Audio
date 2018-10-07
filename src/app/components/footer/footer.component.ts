@@ -115,8 +115,8 @@ export class FooterComponent implements OnInit, OnDestroy {
       this.skipPreviousTrack();
     });
 
-    this.commonService.UploadYTPlaylistEvents$.forEach(data => {
-      this.uploadProgressYTPlaylist(data.pollProcess, data.folder);
+    this.commonService.UploadYTPlaylistEvents$.forEach(data => {      
+      this.uploadProgressYTPlaylist(data.pollProcess, data.folder, data.numberTracksBefore);
     });
 
     try {
@@ -186,17 +186,14 @@ export class FooterComponent implements OnInit, OnDestroy {
     }
   }
 
-  uploadProgressYTPlaylist(pollProcess: PollProcess, folder: Folder) {
+  uploadProgressYTPlaylist(pollProcess: PollProcess, folder: Folder, numberTracksBefore: number) {
     if (pollProcess.status == "STARTED" || pollProcess.status == "RUNNING") {
       this.isUploading = true;
       this.isDeterminate = "determinate";
       this.maxValue = pollProcess.total_tracks;
       if(pollProcess.tracks_complete > 0){
-        if(this.uploadProgress != Math.floor(
-          (pollProcess.tracks_complete / pollProcess.total_tracks) * 100
-        )){
-          this.commonService.notifyUploadComplete(folder);
-        }
+        folder.number_tracks = numberTracksBefore + pollProcess.tracks_complete;
+        this.commonService.notifyUploadComplete(folder);
         this.uploadProgress = Math.floor(
           (pollProcess.tracks_complete / pollProcess.total_tracks) * 100
         );
@@ -209,7 +206,8 @@ export class FooterComponent implements OnInit, OnDestroy {
       this.maxValue = 0;
       this.isDeterminate = "indeterminate";
       this.uploadProgress = 0;
-      folder.folder_type = "";
+      folder.folder_type = "DONE";
+      folder.number_tracks = numberTracksBefore + pollProcess.tracks_complete;
       this.commonService.notifyUploadComplete(folder);
     } 
   }

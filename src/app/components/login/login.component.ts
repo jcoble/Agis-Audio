@@ -2,7 +2,6 @@ import { TokenData } from "./../../models/tokenData";
 import { Component, OnInit, Inject } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-import { FlashMessagesService } from "angular2-flash-messages";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import { ToastrService } from '../../../../node_modules/ngx-toastr';
 
@@ -27,7 +26,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private flashMessage: FlashMessagesService,
     public dialog: MatDialog,
     public toastr: ToastrService,
     public snackbar: MatSnackBar

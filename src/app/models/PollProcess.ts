@@ -1,5 +1,5 @@
 export interface PollProcess {
-    ID?: number,
+    id?: number,
     status?: string,
     total_tracks?: number,
     tracks_complete?: number

@@ -58,8 +58,12 @@ export class HomeComponent implements OnInit {
 
       if (pageYOffset + 150 >= elementOffsetTop) {
         $(".nav-bar-add").animate({ opacity: 1 }, {duration: 1000, queue: false}).animate({ 'margin-top': 100 }, {duration: 1000, queue: false});
-      }else {
+      }
+
+      if (pageYOffset + 2 >= elementOffsetTop * 2) {
+        console.log('add');
         
+        $(".agis-content").animate({ opacity: 1 }, {duration: 1000, queue: false}).animate({ 'margin-top': 100 }, {duration: 1000, queue: false});
       }
 
 
@@ -75,18 +79,19 @@ export class HomeComponent implements OnInit {
   }
 
   scrollTop() {
-    var div = this.el.nativeElement.querySelector("#jumbotron");
-    // div.scrollIntoView({ behavior: 'smooth' });
     $("#scrollMe").animate({ scrollTop: 0 }, 1500);
     this.getAttention("bounce", 75, 30, 1);
   }
 
-  scrollBottom() {
-    console.log(this.end);
-    var div = this.el.nativeElement.querySelector("#place1");
-    console.log(div);
-    // div.scrollIntoView({ behavior: 'smooth' });
+  scrollToAbout() {
+
     $("#scrollMe").animate({ scrollTop: $(document).height() }, 1500);
     this.getAttention("bounce2", 75, 30, 1);
+    this.getAttention("bounce3", 75, 30, 1);
+  }
+
+  scrollToBottom() {
+    $("#scrollMe").animate({ scrollTop: $(document).height() * 2 }, 1500);
+    this.getAttention("bounce4", 75, 30, 1);
   }
 }
