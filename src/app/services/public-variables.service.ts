@@ -5,10 +5,12 @@ import { Injectable, isDevMode } from '@angular/core';
 })
 export class PublicVariablesService {
   apiUrl: string = 'https://www.agisaudio.com/api2/api/';
-  apiUrlTest: string = 'http://localhost:57717/api/';
+  // apiUrlTest: string = 'http://localhost:57717/api/';
+  apiUrlTest: string ='https://www.agisaudio.com/api2/api/';
 
   apiUrlAuth: string = 'https://www.agisaudio.com/api2/';
-  apiUrlTestAuth: string = 'http://localhost:57717/';
+  // apiUrlTestAuth: string = 'http://localhost:57717/';
+  apiUrlTestAuth: string = 'https://www.agisaudio.com/api2/';
 
   constructor() { }
 

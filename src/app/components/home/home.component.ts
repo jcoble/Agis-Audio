@@ -55,15 +55,15 @@ export class HomeComponent implements OnInit {
       } else {
         $("nav").removeClass("background");
       }
-
+ 
       if (pageYOffset + 150 >= elementOffsetTop) {
-        $(".nav-bar-add").animate({ opacity: 1 }, {duration: 1000, queue: false}).animate({ 'margin-top': 100 }, {duration: 1000, queue: false});
+        $(".nav-bar-add").animate({ opacity: 1 }, {duration: 1000, queue: false}).animate({ 'margin-top': 0 }, {duration: 1000, queue: false});
       }
 
       if (pageYOffset + 2 >= elementOffsetTop * 2) {
         console.log('add');
         
-        $(".agis-content").animate({ opacity: 1 }, {duration: 1000, queue: false}).animate({ 'margin-top': 100 }, {duration: 1000, queue: false});
+        $(".agis-content").animate({ opacity: 1 }, {duration: 1000, queue: false}).animate({ 'margin-top': 0 }, {duration: 1000, queue: false});
       }
 
 

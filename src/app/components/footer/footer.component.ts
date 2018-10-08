@@ -11,7 +11,6 @@ import { finalize, map } from "rxjs/operators";
 import { MatSnackBar } from "../../../../node_modules/@angular/material";
 import "rxjs/add/observable/interval";
 import "rxjs/add/operator/takeWhile";
-import { MediaMeta } from "../../models/MediaMeta";
 
 @Component({
   selector: "app-footer",
@@ -32,7 +31,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   testvalue = 50;
   track: Track = {
     id: null,
-    user_id: "",
+    user_id: "", 
     url: "",
     track_name: "Spartan! Click here for more player controls",
     createdDate: null,
@@ -258,19 +257,17 @@ export class FooterComponent implements OnInit, OnDestroy {
       });
     });
     this.track.isPlaying = true;
-    // let mediaMetaData: MediaMeta = {
-    //   title: this.track.track_name,
-    //   album: this.track.genre
-    // }
-    // this.newVariable.mediaSession.metadata = mediaMetaData;
-    // this.newVariable.mediaSession.metadata({
-    //   title: this.track.track_name,
-    //   album: this.track.genre
-    // })
-    // this.newVariable.mediaSession.metadata = new MediaMetadata({
-    //   title: this.track.track_name
-    // })
-    // this.audio.title = this.track.track_name;
+    if ('mediaSession' in this.newVariable && this.newVariable.mediaSession) {
+      this.newVariable.mediaSession.metadata = new MediaMetadata({
+      title: this.track.track_name,
+      album: this.track.genre,
+        artwork: [
+        {src:  this.track.thumbnail, sizes: '128x128', type: 'image/jpeg'},
+        {src: this.track.thumbnail, sizes: '256x256'},
+        {src: this.track.thumbnail, sizes: '1024x1024', type: 'image/jpeg'}
+      ]
+    }); 
+  }
   }
 
   triggerPlayPause() {
