@@ -31,9 +31,13 @@
           <button mat-button (click)="onTrendingClick()">Trending</button>
         </mat-list-item>
         <div *ngIf="isLoggedIn" class="youtube-wrapper text-center">
-          <mat-form-field>
+          <!-- <mat-form-field>
             <input placeholder="YouTube Playlist Link" matInput [(ngModel)]="playlist_id">
-          </mat-form-field>
+          </mat-form-field> -->
+          <div class="form-group ml-1 mr-1">
+            <label for="Link">YouTube Playlist Link</label>
+            <input type="text" class="form-control" id="Link" [(ngModel)]="playlist_id">
+          </div>
           <mat-list-item>
             <button mat-button (click)="onYouTubePlaylistLoad()">Load YouTube Playlist</button>
           </mat-list-item>

@@ -176,6 +176,6 @@ export class AuthService {
   }
 
   isLoggedOut() {
-    return !this.isLoggedIn();
+    return this.isLoggedIn();
   }
 }

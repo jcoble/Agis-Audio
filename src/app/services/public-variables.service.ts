@@ -18,7 +18,7 @@ export class PublicVariablesService {
     if (isDevMode()) {
       return this.apiUrlTest;
     }else {
-      return this.apiUrl;
+      return this.apiUrl; 
     }
   }
 
