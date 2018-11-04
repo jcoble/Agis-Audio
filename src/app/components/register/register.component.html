@@ -55,7 +55,7 @@
 
                             
                                 <mat-error>
-                                    <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+                                    <label [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
                                         <i class="material-icons">
                                             {{ frmSignup.controls['password'].hasError('required') ||
                                             frmSignup.controls['password'].hasError('minlength') ? 'cancel' :
@@ -66,7 +66,7 @@
                                 </mat-error>
 
                                 <mat-error>
-                                    <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+                                    <label [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
                                         <i class="material-icons">
                                             {{ frmSignup.controls['password'].hasError('required') ||
                                             frmSignup.controls['password'].hasError('hasNumber') ? 'cancel' :
@@ -77,7 +77,7 @@
                                 </mat-error>
 
                                 <mat-error>
-                                    <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+                                    <label [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
                                         <i class="material-icons">
                                             {{ frmSignup.controls['password'].hasError('required') ||
                                             frmSignup.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
@@ -87,7 +87,7 @@
                                 </mat-error>
 
                                 <mat-error>
-                                    <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+                                    <label [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
                                         <i class="material-icons">
                                             {{ frmSignup.controls['password'].hasError('required') ||
                                             frmSignup.controls['password'].hasError('hasSmallCase') ? 'cancel' :

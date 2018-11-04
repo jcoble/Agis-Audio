@@ -75,7 +75,6 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createSignupForm();
     this.errors = [];
     this.user = {
       first_name: "",
@@ -101,7 +100,7 @@ export class RegisterComponent implements OnInit {
         password: [
           null,
           Validators.compose([
-            // 1. Password Field is Required
+            // 1. Password Field is Required 
             Validators.required,
             // 2. check whether the entered password has a number
             CustomValidators.patternValidator(/\d/, { hasNumber: true }),
