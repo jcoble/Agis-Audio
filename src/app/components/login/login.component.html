@@ -1,67 +1,71 @@
 <!-- Login form -->
-<div class="container main-wrapper mt-3"> 
-        <h1 class="text-center mt-2">Agis Audio</h1>
-        
-        <div class="content-wrapper">
+<div class="container main-wrapper mt-3">
+    <h1 class="text-center mt-2">Agis Audio</h1>
 
-                <grid-item class=one>
-                </grid-item>
-            
-                <grid-item class="two">
-                    <!-- <div class="card mb-4 text-center info-color-white">
-                        <h1 class="text-black m-3">Sign In</h1>
-                    </div> -->
-                    <div class="card">
-                            <div class="sign-in-header text-center info-color-white">
-                                    <h1 class="text-black m-3">Sign In</h1>
-                                </div>
-                        <!-- <div class="text-center mt-5">
-                            <button (click)="signInWithGoogle()" class="btn btn-red">Sign In With Google</button>
-                        </div> -->
-                        <div class="container">
-                            <div class="alert alert-danger" role="alert" *ngIf="errors.length > 0">
-                                <ul>
-                                    <li *ngFor="let error of errors">
-                                        {{ error }}
-                                    </li>
-                                </ul>
-                            </div>
-            
-                            <form (submit)="onSubmit()"  class="mr-5  ml-3">
-                                <!-- <h1 class="h5 text-center mb-4">Sign in</h1> -->
-            
-                                <div class="md-form">
-                                    <i class="fa fa-envelope prefix grey-text"></i>
-                                    <input type="email" name="email" [(ngModel)]="email" class="form-control" required mdbActive>
-                                    <label for="email">Email</label>
-                                </div>
-            
-                                <div class="md-form">
-                                    <i class="fa fa-lock prefix grey-text"></i>
-                                    <!-- <input type="password" id="defaultForm-pass" class="form-control" [(ngModel)]="password" mdbActive> -->
-                                    <input type="password" name="password" [(ngModel)]="password" class="form-control" required mdbActive>
-                                    <label for="password">Password</label>
-                                </div>
-            
-                                <div class="text-center mb-3">
-                                    <button type="submit" mat-raised-button color="accent" [disabled]="isLoggingIn">
-                                            <mat-progress-spinner *ngIf="isLoggingIn" class="upload-spinner" mode="indeterminate" color="accent" diameter="25" strokeWidth="3"></mat-progress-spinner>
-                                        Login
-                                    </button>
-                                    <button mat-button (click)="onRegisterClick()">Register</button>
-                                </div>
-                            </form>
-            
-                            <div class="text-center mb-3 inline">
-                                <button mat-button (click)="openDialog()">Forgot Password?</button>
-                            </div>
-                        </div>
+    <div class="content-wrapper">
+
+        <grid-item class=one>
+        </grid-item>
+
+        <grid-item class="two">
+
+            <div class="card">
+                <div class="sign-in-header text-center info-color-white">
+                    <h1 class="text-black m-3">Sign In</h1>
+                </div>
+
+                <div class="container">
+                    <div class="alert alert-danger" role="alert" *ngIf="errors.length > 0">
+                        <ul>
+                            <li *ngFor="let error of errors">
+                                {{ error }}
+                            </li>
+                        </ul>
                     </div>
-                </grid-item>
-            
-            
-                <grid-item class="three">
-                </grid-item>
-            
+
+                    <form [formGroup]="frmSignIn" (submit)="onSubmit()" class="mr-5  ml-3">
+
+                        <mat-form-field class="form-field-width">
+                            <input type="email" matInput placeholder="Email" formControlName="email">
+                            <!-- <button mat-button *ngIf="email" matSuffix mat-icon-button aria-label="Clear" (click)="email=''">
+                                <mat-icon>close</mat-icon>
+                            </button> -->
+                            <mat-error *ngIf="frmSignIn.controls['email'].hasError('email')">
+                                Please enter a valid email address
+                            </mat-error>
+                            <mat-error *ngIf="frmSignIn.controls['email'].hasError('required')">
+                                Email is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field-width">
+                            <input type="password" matInput placeholder="Password" formControlName="password">
+                            <!-- <button mat-button *ngIf="password" matSuffix mat-icon-button aria-label="Clear" (click)="password=''">
+                                <mat-icon>close</mat-icon>
+                            </button> -->
+                            <mat-error *ngIf="frmSignIn.controls['password'].hasError('required')">
+                                Password is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="text-center mb-3">
+                            <button type="submit" mat-raised-button color="accent" [disabled]="isLoggingIn || frmSignIn.invalid">
+                                <mat-progress-spinner *ngIf="isLoggingIn" class="upload-spinner" mode="indeterminate"
+                                    color="accent" diameter="25" strokeWidth="3"></mat-progress-spinner>
+                                Login
+                            </button>
+                            <button mat-button (click)="onRegisterClick()">Register</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mb-3 inline">
+                        <button mat-button (click)="openDialog()">Forgot Password?</button>
+                    </div>
+                </div>
             </div>
+        </grid-item>
+        <grid-item class="three">
+        </grid-item>
+
+    </div>
 </div>

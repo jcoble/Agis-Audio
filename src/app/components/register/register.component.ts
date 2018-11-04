@@ -1,92 +1,153 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { User } from "../../models/user";
 import { MatSnackBar } from "@angular/material";
+import {
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+  FormGroup,
+  FormBuilder,
+  ValidationErrors,
+  ValidatorFn,
+  AbstractControl
+} from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
 
+export class CustomValidators {
+  static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        // if control is empty return no error
+        return null;
+      }
+
+      // test the value of the control against the regexp supplied
+      const valid = regex.test(control.value);
+
+      // if true, return no error (no error), else return error passed in the second parameter
+      return valid ? null : error;
+    };
+  }
+
+  static passwordMatchValidator(control: AbstractControl) {
+    const password: string = control.get("password").value; // get password from our password form control
+    const confirmPassword: string = control.get("confirmPassword").value; // get password from our confirmPassword form control
+    // compare is the password math
+    if (password !== confirmPassword) {
+      // if they don't match, set an error in our confirmPassword form control
+      control.get("confirmPassword").setErrors({ NoPassswordMatch: true });
+    }
+  }
+}
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
-  email: string; 
+  email: string;
   password: string;
   firstName: string;
   lastName: string;
   isLoggingIn: boolean;
 
   user: User = {
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: ''
-  }
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: ""
+  };
   successfulSave: boolean;
-  errors: string[]; 
+  errors: string[];
 
+  public frmSignup: FormGroup;
   constructor(
     private authService: AuthService,
     private router: Router,
-    public snackbar: MatSnackBar
-  ) {}
+    public snackbar: MatSnackBar,
+    private fb: FormBuilder
+  ) {
+    this.frmSignup = this.createSignupForm();
+  }
 
-  ngOnInit() { 
+  ngOnInit() {
+    this.createSignupForm();
     this.errors = [];
     this.user = {
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: ''
-    }
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: ""
+    };
     if (this.authService.isLoggedIn()) {
       this.router.navigate(["/playlists"]);
     }
   }
 
-  signUpWithGoogle() {
-    // this.authService
-    //   .socialSignIn()
-    //   .then(res => {
-    //     this.flashMessage.show("You are now registered and logged in", {
-    //       cssClass: "alert-success",
-    //       timeout: 4000
-    //     });
-    //     this.router.navigate(["/"]);
-    //   })
-    //   .catch(err => {
-    //     this.flashMessage.show(err.message, {
-    //       cssClass: "alert-danger",
-    //       timeout: 4000
-    //     });
-    //   });
+  createSignupForm(): FormGroup {
+    return this.fb.group(
+      {
+        firstName: new FormControl("", [Validators.required]),
+        lastName: new FormControl("", [Validators.required]),
+        // email is required and must be a valid email email
+        email: [
+          null,
+          Validators.compose([Validators.email, Validators.required])
+        ],
+        password: [
+          null,
+          Validators.compose([
+            // 1. Password Field is Required
+            Validators.required,
+            // 2. check whether the entered password has a number
+            CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+            // 3. check whether the entered password has upper case letter
+            CustomValidators.patternValidator(/[A-Z]/, {
+              hasCapitalCase: true
+            }),
+            // 4. check whether the entered password has a lower-case letter
+            CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+            // 5. Has a minimum length of 8 characters
+            Validators.minLength(8)
+          ])
+        ],
+        confirmPassword: [null, Validators.compose([Validators.required])]
+      },
+      {
+        // check whether our password and confirm password match
+        validator: CustomValidators.passwordMatchValidator
+      }
+    );
   }
 
-  onLoginClick(){
-    this.router.navigate(['/login']);
+  onLoginClick() {
+    this.router.navigate(["/login"]);
   }
 
-  onSubmit({value, valid}: {value: User, valid: boolean}) {
-    this.errors = [];
+  onSubmit() {
+
     this.isLoggingIn = true;
-    if (valid) {
-      
-      this.authService
+
+    this.authService
       .registerWithEmailPass(
-        value.email,
-        value.password,
-        value.first_name,
-        value.last_name
+        this.frmSignup.value.email,
+        this.frmSignup.value.password,
+        this.frmSignup.value.firstName,
+        this.frmSignup.value.lastName
       )
       .subscribe(
         data => {
           // Register success, now login
-          this.authService.login(value.email, value.password).subscribe(data => {
-            this.isLoggingIn = false;
-            this.router.navigate(["/"]);
-          });
+          this.authService
+            .login(this.frmSignup.value.email, this.frmSignup.value.password)
+            .subscribe(data => {
+              this.isLoggingIn = false;
+              this.router.navigate(["/playlists"]);
+            });
         }, // success path
         error => {
           this.isLoggingIn = false;
@@ -106,10 +167,5 @@ export class RegisterComponent implements OnInit {
           }
         }
       );
-    }else {
-      this.isLoggingIn = false;
-      this.errors.push("Please fill out the form correctly");
-    }
-    
   }
 }

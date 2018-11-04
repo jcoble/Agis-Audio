@@ -4,7 +4,6 @@ import { Folder } from "./../../models/folder";
 import { FilesService } from "./../../services/files.service";
 import { Component, ViewChild, OnInit, Output, Input } from "@angular/core";
 import * as _ from "lodash";
-import { AngularFireStorage } from "angularfire2/storage";
 import { Track } from "../../models/tracks";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -107,7 +106,7 @@ export class UploadComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogNewFolderDialog, {
-      width: '250px',
+      width: '300px',
       data: {folder_name: ''}
     });
     dialogRef.afterClosed().subscribe(result => {

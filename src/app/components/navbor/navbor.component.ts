@@ -7,7 +7,6 @@ import { FilesService } from "../../services/files.service";
 import { Track } from "../../models/tracks";
 import { Observable } from "rxjs";
 import {Location} from '@angular/common';
-import { NavbarComponent as navmdb } from "../../../../node_modules/angular-bootstrap-md/navbars";
 
 @Component({
   selector: "app-navbor",

@@ -160,12 +160,14 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  public isLoggedIn() {
+  public isLoggedIn(): boolean {
     let token = localStorage.getItem('id_token');
     if(token) {
       this.loggedIn.next(true);
+      return true;
     }else {
       this.loggedIn.next(false);
+      return false;
     }
   }
 
@@ -176,6 +178,6 @@ export class AuthService {
   }
 
   isLoggedOut() {
-    return this.isLoggedIn();
+    return !this.isLoggedIn();
   }
 }

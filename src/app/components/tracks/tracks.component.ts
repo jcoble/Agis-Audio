@@ -269,7 +269,7 @@ export class TracksComponent implements OnInit {
 
   addYouTubeVideo() {
     const dialogRef = this.dialog.open(YoutubeDialogComponent, {
-      width: "250px",
+      width: "300px",
       data: { track_name: "Link", link: "", genre: "" }
     });
 

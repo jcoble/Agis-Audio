@@ -28,3 +28,20 @@
 .card {
     border-radius: 7px;
 }
+
+.mat-form-field {
+    display: block;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+.material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  .password-margin-bottom {
+      margin-bottom: 90px;
+  }

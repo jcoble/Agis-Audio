@@ -34,10 +34,10 @@
           <!-- <mat-form-field>
             <input placeholder="YouTube Playlist Link" matInput [(ngModel)]="playlist_id">
           </mat-form-field> -->
-          <div class="form-group ml-1 mr-1">
-            <label for="Link">YouTube Playlist Link</label>
-            <input type="text" class="form-control" id="Link" [(ngModel)]="playlist_id">
-          </div>
+          <p class="Link">YouTube Playlist Link</p>
+          <mat-form-field>
+            <input matInput [(ngModel)]="playlist_id">
+          </mat-form-field>
           <mat-list-item>
             <button mat-button (click)="onYouTubePlaylistLoad()">Load YouTube Playlist</button>
           </mat-list-item>

@@ -240,7 +240,7 @@ export class FoldersComponent implements OnInit {
 
   openDialog(folder: Folder): void {
     const dialogRef = this.dialog.open(DialogNewFolderDialog, {
-      width: "250px",
+      width: "300px",
       data: { folder_name: "" }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -274,7 +274,7 @@ export class FoldersComponent implements OnInit {
 
   addYouTubeVideo(folder: Folder) {
     const dialogRef = this.dialog.open(YoutubeDialogComponent, {
-      width: "250px",
+      width: "300px",
       data: { track_name: "Link", link: "", genre: "" }
     });
 
@@ -308,7 +308,7 @@ export class FoldersComponent implements OnInit {
 
   addYouTubePlaylist(folder: Folder) {
     const dialogRef = this.dialog.open(YoutubeDialogComponent, {
-      width: "250px",
+      width: "300px",
       data: { track_name: "Link", link: "", genre: "" }
     });
 
@@ -395,7 +395,8 @@ export class FoldersComponent implements OnInit {
 
 @Component({
   selector: "dialog-new-folder-dialog",
-  templateUrl: "dialog-new-folder-dialog.html"
+  templateUrl: "dialog-new-folder-dialog.html",
+  styleUrls: ["./folders.component.scss"]
 })
 export class DialogNewFolderDialog {
   constructor(

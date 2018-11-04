@@ -1,4 +1,4 @@
-<div mat-dialog-content>
+<div class="content-container" mat-dialog-content>
   <p>Enter YouTube Info</p>
   <mat-form-field>
     <mat-select [(value)]="data.genre">
@@ -18,10 +18,10 @@
   <!-- <mat-form-field>
     <input placeholder="YouTube {{data.track_name}}..." matInput [(ngModel)]="data.link">
   </mat-form-field> -->
-  <div class="form-group">
-    <label for="Link">YouTube {{data.track_name}}</label>
-    <input type="text" class="form-control" id="Link" [(ngModel)]="data.link">
-  </div>
+  <p>YouTube {{data.track_name}}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.link">
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>

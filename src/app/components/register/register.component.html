@@ -1,5 +1,5 @@
 <div class="container  mt-3">
-        <h1 class="text-center">Agis Audio</h1>
+    <h1 class="text-center">Agis Audio</h1>
     <div class="content-wrapper">
 
         <grid-item class=one>
@@ -10,12 +10,7 @@
                 <div class="text-center info-color-white">
                     <h1 class="text-black m-3">Register</h1>
                 </div>
-                <!-- <div class="text-center mt-5">
-                <button (click)="signUpWithGoogle()" class="btn btn-red">Sign Up With Google</button>
-            </div> -->
-                <!-- <div class="text-center mt-3 mb-3">
-                <h3>OR</h3>
-            </div> -->
+
                 <div class="container pl-2">
                     <div class="alert alert-danger" role="alert" *ngIf="errors.length > 0">
                         <ul>
@@ -25,81 +20,105 @@
                         </ul>
                     </div>
                     <!--Register form-->
-                    <form #registerForm="ngForm" (submit)="onSubmit(registerForm)" class="mr-5 ml-3">
-                        <!-- <div class="md-form  mt-5">
-                        <i class="fa fa-user prefix grey-text"></i>
-                        <input type="text" id="orangeForm-name" class="form-control" [(ngModel)]="name" mdbActive>
-                        <label for="orangeForm-name">Your name</label>
-                    </div> -->
+                    <form [formGroup]="frmSignup" class="mr-5 ml-3">
 
-                        <div class="md-form">
-                            <i class="fa fa-user prefix grey-text"></i>
-                            <!-- <input type="password" id="defaultForm-pass" class="form-control" [(ngModel)]="password" mdbActive> -->
-                            <input type="text" name="first_name" [(ngModel)]="user.first_name" class="form-control" #first_name="ngModel" [ngClass]="{'is-invalid':first_name.errors && first_name.touched}"
-                                required minlength="2" mdbActive>
-                            <label for="first_name">Your First Name</label>
+                        <mat-form-field class="form-field-width">
+                            <input type="text" matInput placeholder="First Name" formControlName="firstName">
+                            <mat-error *ngIf="!frmSignup.get('firstName').valid">
+                                First Name is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
 
-                            <div [hidden]="!first_name.errors?.required" class="invalid-feedback">
-                                First name required
-                            </div>
+                        <mat-form-field class="form-field-width">
+                            <input type="text" matInput placeholder="Last Name" formControlName="lastName">
+                            <mat-error *ngIf="!frmSignup.get('lastName').valid">
+                                Last Name is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
 
-                            <div [hidden]="!first_name.errors?.minlength" class="invalid-feedback">
-                                Must be at least 2 characters
-                            </div>
-                        </div>
+                        <mat-form-field class="form-field-width">
+                            <input type="email" matInput placeholder="Your Email" formControlName="email">
+                            <mat-error *ngIf="frmSignup.controls['email'].hasError('required')">
+                                Email is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="frmSignup.controls['email'].hasError('email')">
+                                Please enter a valid email address
+                            </mat-error>
+                        </mat-form-field>
 
-                        <div class="md-form">
-                            <i class="fa fa-user prefix grey-text"></i>
-                            <!-- <input type="password" id="defaultForm-pass" class="form-control" [(ngModel)]="password" mdbActive> -->
-                            <input type="text" name="last_name" [(ngModel)]="user.last_name" class="form-control" #last_name="ngModel" [ngClass]="{'is-invalid':last_name.errors && last_name.touched}"
-                                required minlength="2" mdbActive>
-                            <label for="last_name">Your Last Name</label>
 
-                            <div [hidden]="!last_name.errors?.required" class="invalid-feedback">
-                                Last name required
-                            </div>
+                        <mat-form-field class="form-field-width">
+                            <input type="password" matInput placeholder="New Password" formControlName="password">
+                            <mat-error *ngIf="frmSignup.controls['password'].hasError('required')">
+                                Password is <strong>required</strong>
+                            </mat-error>
 
-                            <div [hidden]="!last_name.errors?.minlength" class="invalid-feedback">
-                                Last be at least 2 characters
-                            </div>
-                        </div>
+                            
+                                <mat-error>
+                                    <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+                                        <i class="material-icons">
+                                            {{ frmSignup.controls['password'].hasError('required') ||
+                                            frmSignup.controls['password'].hasError('minlength') ? 'cancel' :
+                                            'check_circle' }}
+                                        </i>
+                                        Must be at least 8 characters!
+                                    </label>
+                                </mat-error>
 
-                        <div class="md-form">
-                            <i class="fa fa-envelope prefix grey-text"></i>
-                            <input name="email" type="email" id="orangeForm-email" class="form-control" [(ngModel)]="user.email" #email="ngModel" [ngClass]="{'is-invalid':email.errors && email.touched}"
-                                required mdbActive>
-                            <label for="orangeForm-email">Your email</label>
+                                <mat-error>
+                                    <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+                                        <i class="material-icons">
+                                            {{ frmSignup.controls['password'].hasError('required') ||
+                                            frmSignup.controls['password'].hasError('hasNumber') ? 'cancel' :
+                                            'check_circle' }}
+                                        </i>
+                                        Must contain at least 1 number!
+                                    </label>
+                                </mat-error>
 
-                            <div [hidden]="!email.errors?.required" class="invalid-feedback">
-                                Email required
-                            </div>
+                                <mat-error>
+                                    <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+                                        <i class="material-icons">
+                                            {{ frmSignup.controls['password'].hasError('required') ||
+                                            frmSignup.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+                                            'check_circle' }}
+                                        </i> Must contain at least 1 in Capital Case!
+                                    </label>
+                                </mat-error>
 
-                        </div>
-                        <!-- <div class="md-form">
-                        <i class="fa fa-lock prefix grey-text"></i>
-                        <input name="name" type="name" id="orangeForm-name" class="form-control" [(ngModel)]="name" mdbActive>
-                        <label for="orangeForm-pass">Your Name</label>
-                    </div> -->
-                        <div class="md-form">
-                            <i class="fa fa-lock prefix grey-text"></i>
-                            <input autocomplete="new-password" name="password" type="password" id="orangeForm-pass" class="form-control" [(ngModel)]="user.password"
-                                #password="ngModel" [ngClass]="{'is-invalid':password.errors && password.touched}" required mdbActive>
-                            <label for="orangeForm-pass">Your password</label>
+                                <mat-error>
+                                    <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+                                        <i class="material-icons">
+                                            {{ frmSignup.controls['password'].hasError('required') ||
+                                            frmSignup.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+                                            'check_circle' }}
+                                        </i>
+                                        Must contain at least 1 Letter in Small Case!
+                                    </label>
+                                </mat-error>
+                            
 
-                            <div [hidden]="!password.errors?.required" class="invalid-feedback">
-                                Password required
-                            </div>
-                        </div>
+                        </mat-form-field>
+                        <div [ngClass]="frmSignup.controls['password'].invalid && frmSignup.controls['password'].touched ? 'password-margin-bottom' : ''"></div>
+                        <mat-form-field class="form-field-width">
+                            <input type="password" matInput placeholder="Repeat Password" formControlName="confirmPassword">
+                            <mat-error *ngIf="frmSignup.controls['confirmPassword'].hasError('required')">
+                                Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="frmSignup.controls['confirmPassword'].hasError('NoPassswordMatch')">
+                                Passwords do not match
+                            </mat-error>
+                        </mat-form-field>
 
-                        <div class="text-center mb-5">
-                            <!-- <button type="submit" class="btn btn-deep-orange waves-light" mdbRippleRadius>Sign Up</button> -->
-                            <button type="submit" mat-raised-button color="accent" [disabled]="isLoggingIn">
-                                <mat-progress-spinner *ngIf="isLoggingIn" class="upload-spinner" mode="indeterminate" color="accent" diameter="25" strokeWidth="3"></mat-progress-spinner>
-                                Sign Up
-                            </button>
-                            <button mat-button (click)="onLoginClick()">Login</button>
-                        </div>
                     </form>
+                    <div class="text-center mb-5 mt-3">
+                        <button (click)="onSubmit()" mat-raised-button color="accent" [disabled]="frmSignup.invalid || isLoggingIn">
+                            <mat-progress-spinner *ngIf="isLoggingIn" class="upload-spinner" mode="indeterminate" color="accent"
+                                diameter="25" strokeWidth="3"></mat-progress-spinner>
+                            Sign Up
+                        </button>
+                        <button mat-button (click)="onLoginClick()">Login</button>
+                    </div>
                     <!--/Register form-->
                 </div>
             </div>

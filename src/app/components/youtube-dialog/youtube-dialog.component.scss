@@ -13,3 +13,12 @@ textarea.md-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #ff9800;
   box-shadow: 0 1px 0 0 #ff9800;
 }
+
+.form-control {
+  border: 0; 
+}
+
+.mat-form-field {
+  display: block;
+}
+

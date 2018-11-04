@@ -54,6 +54,7 @@ import { ParallaxScrollModule } from 'ng2-parallaxscroll';
 import { ScrollToModule } from 'ng2-scroll-to-el';
 import { BackgroundfadeinDirective } from './directives/backgroundfadein.directive';
 import { HttpErrorHandler } from './services/http-error-handler.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,9 @@ import { HttpErrorHandler } from './services/http-error-handler.service';
     MatBottomSheetModule,
     LazyLoadImagesModule,
     ParallaxScrollModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
+    ScrollingModule,
+    ReactiveFormsModule
     // ,
     // SignalRModule.forRoot(createConfig)
   ],
